@@ -1,0 +1,69 @@
+import { StyleSheet,  View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {Button, Text} from 'react-native-paper'
+import { URL, URL2 } from '../constants/url';
+
+export const Teams = () => {
+  const [matches, setMatches] = useState({});
+  const [teams, setTeams] = useState([
+    ['Table 1', ['Team 1', true], ['Team 2', false]],
+    ['Table 2', ['Team 3', true], ['Team 4', false]],
+    ['Table 3', ['Team 5', true], ['Team 6', false]],
+  ]);
+  const handleGet = () => {
+    console.log('get pressed');
+  };
+
+  const handleSend = async () => {
+    const obj = { first: 'From', last: 'PhoneApp' };
+    const url =
+      'https://script.google.com/macros/s/AKfycbzhabv_DQom5N4hSsCfq3WR-2gJObgpOjoJJ7xlw-XWPONOAirrtM_MhH0ZvV4Ikhs8/exec?action=addUser';
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.text();
+      console.log(data);
+      // handle success response here
+    } catch (error) {
+      console.error('Error:', error.message);
+      // handle error here
+    }
+  };
+
+  useEffect(() => {
+    const url1 = `${URL}?type=teamList`;
+    const teamArray = [];
+    fetch(url1)
+      .then(res => res.json())
+      .then(data => {
+        setMatches(data);
+        setTeams(data.vals);
+        console.log('team array:', matches);
+      });
+  }, []);
+
+  const TeamList = () => {
+    const TeamList = () => {
+
+    };
+
+    ));
+  };
+  return (
+
+  );
+};
+
+const styles = StyleSheet.create({});
