@@ -3,15 +3,29 @@ import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native-paper';
 import LoadingScreen from '../components/LoadingScreen';
 import { URL } from '../constants/url';
-import { Select } from '../components/Select';
+import { SelectList } from 'react-native-dropdown-select-list';
 
 const TestScreen = ({ route, navigation }) => {
   const { table, home } = route.params;
   const [teamData, setTeamData] = useState();
+  const [selected, setSelected] = useState();
+  const [handicap, setHandicap] = useState();
+  const metaData = {
+    person: { name: 'one', hc: 2 },
+  };
 
+  const data = [
+    { key: '1', value: 'one' },
+    { key: '2', value: 'two' },
+    { key: '3', value: 'three' },
+  ];
+  const handleSelect = name => {
+    console.log('whatever');
+    setSelected(name);
+    setHandicap(key);
+  };
   useEffect(() => {
     const url1 = `${URL}?type=teamInfo&table=${table}&home=${home}`;
-    console.log(url1);
     const teamArray = [];
     fetch(url1)
       .then(res => res.json())
@@ -22,14 +36,20 @@ const TestScreen = ({ route, navigation }) => {
 
   return (
     <View>
-      <Select
-        prompt='hello'
-        options={[{ label: 'wow', value: 'wow', key: 'wow' }]}
-        onChange={() => console.log(value)}
-        value='hello'
-        name='hi'
-        placeholder='hey there'
+      <SelectList
+        data={data}
+        setSelected={(value, key, second) => console.log(value, key, selected)}
+        //boxStyles={{}}
+        //inputStyles={{}}
+        //dropdownStyles={{}}
+        //dropdownItemStyles={{}}
+        //dropdownTextStyles={{}}
+        placeholder={'Select from this stuff'}
+        maxHeight={200}
       />
+      <Text>
+        name:{selected} H/C: {handicap}
+      </Text>
       {teamData ? (
         <>
           <Text variant='headlineMedium'>Table {table}</Text>

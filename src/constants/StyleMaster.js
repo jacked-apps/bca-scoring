@@ -41,6 +41,27 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: width * 0.25,
   },
+  lineup: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: width * 0.15,
+  },
+  rowSelect: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginHorizontal: width * 0.1,
+    marginVertical: width * 0.03,
+  },
+  selectBox: {
+    backgroundColor: 'linen',
+    borderColor: 'black',
+    borderWidth: 2,
+    width: width * 0.5,
+  },
+  selectInput: { fontSize: 18 },
   centerPage: {
     justifyContent: 'center',
     alignItems: 'center',
