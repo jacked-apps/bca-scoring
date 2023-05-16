@@ -13,6 +13,8 @@ import PlayerEdit from '../components/PlayerEdit';
 // check if away team is working
 const Loading = ({ route, navigation }) => {
   const [status, setStatus] = useState();
+  const [edit, setEdit] = useState();
+
   const [opponentStatus, setOpponentStatus] = useState();
   const [player1, setPlayer1] = useState();
   const [player2, setPlayer2] = useState();
@@ -52,12 +54,18 @@ const Loading = ({ route, navigation }) => {
               lineup={status.thisTeam.lineup}
               teamInfo={status.thisTeam.teamInfo}
               home={home}
+              setEdit={setEdit}
             />
-            <PlayerEdit
-              lineup={status.thisTeam.lineup}
-              teamInfo={status.thisTeam.teamInfo}
-              home={home}
-            />
+
+            {edit && (
+              <PlayerEdit
+                lineup={status.thisTeam.lineup}
+                teamInfo={status.thisTeam.teamInfo}
+                home={home}
+                position={edit ? edit : 1}
+              />
+            )}
+
             <View>
               <View style={styles.headline}>
                 <Text variant='titleMedium'>

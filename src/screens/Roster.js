@@ -6,7 +6,7 @@ import { styles } from '../constants/StyleMaster';
 import { SelectList } from 'react-native-dropdown-select-list';
 import LoadingScreen from '../components/LoadingScreen';
 import TeamBlock from '../components/TeamBlock';
-import { getHighestHandicap } from '../constants/functions';
+import { getHighestHandicap, subName } from '../constants/functions';
 
 const Roster = ({ route, navigation }) => {
   const { table, home, teamName } = route.params;
@@ -46,11 +46,10 @@ const Roster = ({ route, navigation }) => {
       );
     } else return <Text>Choose all Players</Text>;
   };
-
+  subName;
   const handleSelect = (value, setPlayer, setHC) => {
-    const subName = ` SUB ${home ? 'HOME' : 'AWAY'}`;
     if (value === 'sub') {
-      setPlayer(subName);
+      setPlayer(subName(home));
       setHC(5);
     } else {
       setPlayer(teamData[value].name);
