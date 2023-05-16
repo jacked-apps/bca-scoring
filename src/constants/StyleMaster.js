@@ -28,6 +28,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 15,
   },
+  submitButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+  },
   rowSubtitle: {
     display: 'flex',
     flexDirection: 'row',
@@ -35,11 +40,14 @@ export const styles = StyleSheet.create({
     marginVertical: height * 0.02,
     marginHorizontal: width * 0.25,
   },
+  teamBlockContainer: {
+    width: width * 0.95,
+  },
   rowPlayer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: width * 0.25,
+    marginHorizontal: width * 0.2,
   },
   lineup: {
     display: 'flex',
@@ -66,5 +74,27 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: height * 0.8,
+  },
+  rowSingleSelect: {
+    marginVertical: height * 0.02,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: width * 0.92,
+  },
+  left: {
+    position: 'absolute',
+    left: 0,
+  },
+  right: {
+    position: 'absolute',
+    right: 0,
+  },
+  center: {
+    zIndex: 1,
+  },
+  singlePickButton: {
+    alignSelf: 'flex-end',
+    alignItems: 'center',
   },
 });

@@ -6,7 +6,7 @@ import React from 'react';
 
 const TeamBlock = ({ teamData }) => {
   return (
-    <View>
+    <View style={styles.teamBlockContainer}>
       <View style={styles.headline}>
         <Text variant='headlineLarge'>{teamData.TeamName}</Text>
       </View>

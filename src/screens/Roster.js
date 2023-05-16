@@ -11,7 +11,7 @@ import { getHighestHandicap } from '../constants/functions';
 const Roster = ({ route, navigation }) => {
   const { table, home, teamName } = route.params;
   const [teamData, setTeamData] = useState();
-  const [subUsed, setSubUsed] = useState(false);
+  const [subHC, setSubHC] = useState(false);
   const [playerOne, setPlayerOne] = useState([]);
   const [playerOneHC, setPlayerOneHC] = useState([]);
   const [playerTwo, setPlayerTwo] = useState('');
@@ -23,7 +23,7 @@ const Roster = ({ route, navigation }) => {
 
   const handleSub = (value, highestHC, setHC) => {
     const out = value > highestHC ? value : highestHC;
-    console.log('handle sub', value, highestHC);
+    setSubHC(out);
     setHC(out);
   };
 
@@ -48,10 +48,9 @@ const Roster = ({ route, navigation }) => {
   };
 
   const handleSelect = (value, setPlayer, setHC) => {
-    const subName = `SUB ${home ? 'HOME' : 'AWAY'}`;
+    const subName = ` SUB ${home ? 'HOME' : 'AWAY'}`;
     if (value === 'sub') {
       setPlayer(subName);
-      setSubUsed(true);
       setHC(5);
     } else {
       setPlayer(teamData[value].name);
@@ -62,7 +61,6 @@ const Roster = ({ route, navigation }) => {
       playerTwo != subName &&
       playerThree != subName
     ) {
-      setSubUsed(false);
     }
   };
 
@@ -74,21 +72,58 @@ const Roster = ({ route, navigation }) => {
       .then(res => res.json())
       .then(data => {
         setTeamData(data.vals);
-        console.log('RosterData', data.vals);
         setData([
           { key: 'captain', value: data.vals.captain.name },
           { key: 'player2', value: data.vals.player2.name },
           { key: 'player3', value: data.vals.player3.name },
           { key: 'player4', value: data.vals.player4.name },
           { key: 'player5', value: data.vals.player5.name },
-          { key: 'sub', value: `SUB ${home ? 'HOME' : 'AWAY'}` },
+          { key: 'sub', value: ` SUB ${home ? 'HOME' : 'AWAY'}` },
         ]);
       });
   }, []);
+
+  const handleSend = async () => {
+    const obj = {
+      subHC,
+      subHC,
+      table: table,
+      home: home,
+      player1: playerOne,
+      player2: playerTwo,
+      player3: playerThree,
+    };
+    const url = `${URL}?action=addRoster`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.text();
+
+      // handle success response here
+      navigation.navigate('Loading', { table, home });
+    } catch (error) {
+      console.error('Error:', error.message);
+      // handle error here
+    }
+  };
+
   const SubmitButton = () => {
     return (
       <View style={styles.headline}>
-        <Button mode='contained'>Set This Roster</Button>
+        <Button onPress={handleSend} mode='contained'>
+          Set This Roster
+        </Button>
       </View>
     );
   };
@@ -107,6 +142,7 @@ const Roster = ({ route, navigation }) => {
       return <Text>Enter your Sub handicap</Text>;
     } else return <SubmitButton />;
   };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView>
@@ -148,6 +184,28 @@ const Roster = ({ route, navigation }) => {
                 />
               </View>
               <View style={styles.headline}>
+                {playerOne === ` SUB ${home ? 'HOME' : 'AWAY'}` && (
+                  <SubHC
+                    player1={playerTwo}
+                    player2={playerThree}
+                    setHC={setPlayerOneHC}
+                  />
+                )}
+                {playerTwo === ` SUB ${home ? 'HOME' : 'AWAY'}` && (
+                  <SubHC
+                    player1={playerOne}
+                    player2={playerThree}
+                    setHC={setPlayerTwoHC}
+                  />
+                )}
+                {playerThree === ` SUB ${home ? 'HOME' : 'AWAY'}` && (
+                  <SubHC
+                    player1={playerTwo}
+                    player2={playerOne}
+                    setHC={setPlayerThreeHC}
+                  />
+                )}
+
                 <Text variant='titleLarge'>
                   Team Handicap: {+playerOneHC + +playerTwoHC + +playerThreeHC}
                 </Text>
@@ -164,35 +222,9 @@ const Roster = ({ route, navigation }) => {
                 <Text variant='titleMedium'>3rd: {playerThree}</Text>
                 <Text variant='titleMedium'>HC: {playerThreeHC}</Text>
               </View>
-              <View style={styles.headline}>
-                {playerOne === `SUB ${home ? 'HOME' : 'AWAY'}` && (
-                  <SubHC
-                    player1={playerTwo}
-                    player2={playerThree}
-                    setHC={setPlayerOneHC}
-                  />
-                )}
-                {playerTwo === `SUB ${home ? 'HOME' : 'AWAY'}` && (
-                  <SubHC
-                    player1={playerOne}
-                    player2={playerThree}
-                    setHC={setPlayerTwoHC}
-                  />
-                )}
-                {playerThree === `SUB ${home ? 'HOME' : 'AWAY'}` && (
-                  <SubHC
-                    player1={playerTwo}
-                    player2={playerOne}
-                    setHC={setPlayerThreeHC}
-                  />
-                )}
-                {(playerOne || playerTwo || playerThree) && (
-                  <>
-                    <SubmitVerify />
-                  </>
-                )}
-              </View>
+              <View style={styles.headline}></View>
             </View>
+            <SubmitVerify />
           </>
         ) : (
           <LoadingScreen />
