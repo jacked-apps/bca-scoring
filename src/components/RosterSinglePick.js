@@ -5,12 +5,13 @@ import { SelectList } from 'react-native-dropdown-select-list';
 
 import React, { useState } from 'react';
 
-const RosterSinglePick = ({ lineup, teamInfo }) => {
+const RosterSinglePick = ({ lineup, teamInfo, home }) => {
+  home = true;
   const [player1, setPlayer1] = useState({ edit: false });
   const [player2, setPlayer2] = useState({ edit: false });
   const [player3, setPlayer3] = useState({ edit: false });
 
-  console.log('singleLineup', lineup);
+  console.log('singleLineup', teamInfo);
 
   const PlainView = ({ index, playerName, locked }) => {
     return (

@@ -8,6 +8,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import TeamBlock from '../components/TeamBlock';
 import RosterSinglePick from '../components/RosterSinglePick';
 import { useIsFocused } from '@react-navigation/native';
+import PlayerEdit from '../components/PlayerEdit';
 
 // check if away team is working
 const Loading = ({ route, navigation }) => {
@@ -50,6 +51,12 @@ const Loading = ({ route, navigation }) => {
             <RosterSinglePick
               lineup={status.thisTeam.lineup}
               teamInfo={status.thisTeam.teamInfo}
+              home={home}
+            />
+            <PlayerEdit
+              lineup={status.thisTeam.lineup}
+              teamInfo={status.thisTeam.teamInfo}
+              home={home}
             />
             <View>
               <View style={styles.headline}>
