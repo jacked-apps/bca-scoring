@@ -91,7 +91,14 @@ export const styles = StyleSheet.create({
     right: 0,
   },
   center: {
+    maxWidth: width * 0.5,
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 1,
+  },
+  centerText: {
+    textAlign: 'center',
+    flexWrap: 'wrap',
   },
   singlePickButton: {
     alignSelf: 'flex-end',

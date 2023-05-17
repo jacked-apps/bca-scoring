@@ -1,4 +1,4 @@
-import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
+import { View, SafeAreaView, ScrollView } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import { URL } from '../constants/url';
@@ -7,9 +7,12 @@ import { SelectList } from 'react-native-dropdown-select-list';
 import LoadingScreen from '../components/LoadingScreen';
 import TeamBlock from '../components/TeamBlock';
 import { getHighestHandicap, subName } from '../constants/functions';
+import { subHCData } from '../components/SubHCSelect';
+import { postAddRoster } from '../constants/posts';
 
 const Roster = ({ route, navigation }) => {
-  const { table, home, teamName } = route.params;
+  const { table, home } = route.params;
+
   const [teamData, setTeamData] = useState();
   const [subHC, setSubHC] = useState(false);
   const [playerOne, setPlayerOne] = useState([]);
@@ -19,7 +22,7 @@ const Roster = ({ route, navigation }) => {
   const [playerThree, setPlayerThree] = useState('');
   const [playerThreeHC, setPlayerThreeHC] = useState('');
 
-  const [data, setData] = useState('');
+  const [data, setData] = useState();
 
   const handleSub = (value, highestHC, setHC) => {
     const out = value > highestHC ? value : highestHC;
@@ -30,23 +33,17 @@ const Roster = ({ route, navigation }) => {
   const SubHC = ({ player1, player2, setHC }) => {
     if (playerOne && playerTwo && playerThree) {
       const highestHC = getHighestHandicap(player1, player2, teamData);
-      const hData = [
-        { key: '2', value: '2' },
-        { key: '1', value: '1' },
-        { key: '0', value: '0' },
-        { key: '-1', value: '-1' },
-        { key: '-2', value: '-2' },
-      ];
+
       return (
         <SelectList
-          data={hData}
+          data={subHCData}
           setSelected={value => handleSub(value, highestHC, setHC)}
           placeholder='Sub H/C'
         />
       );
     } else return <Text>Choose all Players</Text>;
   };
-  subName;
+
   const handleSelect = (value, setPlayer, setHC) => {
     if (value === 'sub') {
       setPlayer(subName(home));
@@ -56,9 +53,9 @@ const Roster = ({ route, navigation }) => {
       setHC(teamData[value].handicap);
     }
     if (
-      playerOne != subName &&
-      playerTwo != subName &&
-      playerThree != subName
+      playerOne != subName(home) &&
+      playerTwo != subName(home) &&
+      playerThree != subName(home)
     ) {
     }
   };
@@ -83,37 +80,8 @@ const Roster = ({ route, navigation }) => {
   }, []);
 
   const handleSend = async () => {
-    const obj = {
-      subHC: subHC,
-      table: table,
-      home: home,
-      player1: playerOne,
-      player2: playerTwo,
-      player3: playerThree,
-    };
-    const url = `${URL}?action=addRoster`;
-
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(obj),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const data = await response.text();
-
-      // handle success response here
-      navigation.navigate('Loading', { table, home });
-    } catch (error) {
-      console.error('Error:', error.message);
-      // handle error here
-    }
+    await postAddRoster(subHC, table, home, playerOne, playerTwo, playerThree);
+    navigation.navigate('Loading', { table, home });
   };
 
   const SubmitButton = () => {
