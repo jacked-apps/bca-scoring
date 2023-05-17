@@ -14,28 +14,32 @@ import PlayerEdit from '../components/PlayerEdit';
 const Loading = ({ route, navigation }) => {
   const [status, setStatus] = useState();
   const [edit, setEdit] = useState();
+  const [navigationKey, setNavigationKey] = useState(0);
 
   const { table, home } = route.params;
   const isFocused = useIsFocused();
   const firstRender = useRef(false);
 
-  useEffect(() => {
-    // leaving this fetch here because it does to many specific things
+  const fetchData = () => {
     const url1 = `${URL}?type=status&table=${table}&home=${home}`;
+    fetch(url1)
+      .then(res => res.json())
+      .then(data => {
+        data.vals.teamStatus === 'locked' &&
+          navigation.navigate('Scoring', { table: table, home: home });
+        data.vals.teamStatus === 'open' &&
+          navigation.navigate('Roster', { table: table, home: home });
+        setStatus(data.vals);
+        //console.log('status', data.vals);
+      });
+  };
+
+  useEffect(() => {
     if (isFocused && !firstRender.current) {
-      fetch(url1)
-        .then(res => res.json())
-        .then(data => {
-          data.vals.teamStatus == 'locked' &&
-            navigation.navigate('Scoring', { table: table, home: home });
-          data.vals.teamStatus == 'open' &&
-            navigation.navigate('Roster', { table: table, home: home });
-          setStatus(data.vals);
-          //console.log('status', data.vals);
-        });
+      fetchData();
     }
     firstRender.current = false;
-  }, [isFocused]);
+  }, [isFocused, navigationKey]);
 
   const handlePress = (page, table, home) => {
     navigation.navigate(page, { table, home });
@@ -61,6 +65,9 @@ const Loading = ({ route, navigation }) => {
                 table={table}
                 position={edit ? edit : 1}
                 setEdit={setEdit}
+                navigation={navigation}
+                setNavigationKey={setNavigationKey}
+                fetchData={fetchData}
               />
             )}
 

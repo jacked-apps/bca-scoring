@@ -1,6 +1,8 @@
 import { URL } from './url';
 
 export const postEditRoster = async (table, home, position, player, subHC) => {
+  console.log('handleSend', table, home, position, player, subHC);
+
   const obj = {
     subHC: subHC,
     table: table,
@@ -8,6 +10,7 @@ export const postEditRoster = async (table, home, position, player, subHC) => {
     position: position,
     player: player,
   };
+  console.log('object ', obj.subHC);
   const url = `${URL}?action=editRoster`;
 
   try {

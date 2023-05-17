@@ -7,7 +7,17 @@ import { getChoices, subName } from '../constants/functions';
 import SubHCSelect from './SubHCSelect';
 import { postEditRoster } from '../constants/posts';
 
-const PlayerEdit = ({ lineup, teamInfo, home, position, setEdit, table }) => {
+const PlayerEdit = ({
+  lineup,
+  teamInfo,
+  home,
+  position,
+  setEdit,
+  table,
+  fetchData,
+  navigation,
+  setNavigationKey,
+}) => {
   const [selected, setSelected] = useState();
   const [subHC, setSubHC] = useState();
   const [disableSend, setDisableSend] = useState(true);
@@ -21,10 +31,14 @@ const PlayerEdit = ({ lineup, teamInfo, home, position, setEdit, table }) => {
     return player;
   };
 
-  const handleSend = () => {
-    //console.log('handleSend', table, home, position, selected, subHC);
-    postEditRoster(table, home, position, selected, subHC);
+  const handleSend = async () => {
+    setDisableSend(true);
+    console.log('handleSend', table, home, position, selected, subHC);
+    await postEditRoster(table, home, position, selected, subHC);
+    await fetchData();
     setEdit(false);
+    setNavigationKey(prevKey => prevKey + 1);
+    navigation.navigate('Loading', { table, home });
   };
   const handleChangePLayer = value => {
     setDisableSend(true);
