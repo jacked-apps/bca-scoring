@@ -56,7 +56,7 @@ const TestScreen = ({ route, navigation }) => {
           <Text variant='headlineMedium'>Table {table}</Text>
           <Text variant='headlineMedium'>{home ? 'home' : 'away'}</Text>
           <Text variant='headlineMedium'>{teamData.TeamName}</Text>
-          <Button onPress={postEditRoster}>send shit</Button>
+          <Button onPress={() => postEditRoster(table, home)}>send shit</Button>
         </>
       ) : (
         <LoadingScreen />

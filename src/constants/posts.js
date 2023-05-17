@@ -1,12 +1,6 @@
 import { URL } from './url';
 
-export const postEditRoster = async ({
-  table,
-  home,
-  position,
-  player,
-  subHC,
-}) => {
+export const postEditRoster = async (table, home, position, player, subHC) => {
   const obj = {
     subHC: subHC,
     table: table,
@@ -30,6 +24,7 @@ export const postEditRoster = async ({
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.text();
+    console.log('editRoster ', data);
 
     // handle success response here
     //navigation.navigate('Loading', { table, home });

@@ -16,12 +16,13 @@ const PlayerEdit = ({ lineup, teamInfo, home, position, setEdit, table }) => {
 
   const playerName = () => {
     key = 'player' + position;
-    player = lineup[key].name;
+    lineup ? (player = lineup[key].name) : key;
 
     return player;
   };
 
   const handleSend = () => {
+    //console.log('handleSend', table, home, position, selected, subHC);
     postEditRoster(table, home, position, selected, subHC);
     setEdit(false);
   };
@@ -42,7 +43,9 @@ const PlayerEdit = ({ lineup, teamInfo, home, position, setEdit, table }) => {
           <Text variant='titleMedium'>Player {position}</Text>
         </View>
         <View style={styles.center}>
-          <Text>Change: </Text>
+          <Text>
+            Change: {playerName()} {selected}
+          </Text>
           <SelectList
             data={data}
             setSelected={value => handleChangePLayer(value)}
