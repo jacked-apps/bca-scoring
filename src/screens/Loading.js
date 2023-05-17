@@ -1,4 +1,4 @@
-import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native';
+import { View, SafeAreaView, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Text } from 'react-native-paper';
 import React, { useEffect, useState, useRef } from 'react';
@@ -6,7 +6,7 @@ import { styles } from '../constants/StyleMaster';
 import { URL } from '../constants/url';
 import LoadingScreen from '../components/LoadingScreen';
 import TeamBlock from '../components/TeamBlock';
-import RosterSinglePick from '../components/RosterSinglePick';
+import RosterEdit from '../components/RosterEdit';
 import { useIsFocused } from '@react-navigation/native';
 import PlayerEdit from '../components/PlayerEdit';
 
@@ -15,16 +15,12 @@ const Loading = ({ route, navigation }) => {
   const [status, setStatus] = useState();
   const [edit, setEdit] = useState();
 
-  const [opponentStatus, setOpponentStatus] = useState();
-  const [player1, setPlayer1] = useState();
-  const [player2, setPlayer2] = useState();
-  const [player3, setPlayer3] = useState();
-
-  const { table, home, teamName } = route.params;
+  const { table, home } = route.params;
   const isFocused = useIsFocused();
   const firstRender = useRef(false);
 
   useEffect(() => {
+    // leaving this fetch here because it does to many specific things
     const url1 = `${URL}?type=status&table=${table}&home=${home}`;
     if (isFocused && !firstRender.current) {
       fetch(url1)
@@ -50,7 +46,7 @@ const Loading = ({ route, navigation }) => {
         {status && status.thisTeam.teamInfo ? (
           <View style={styles.headline}>
             <TeamBlock teamData={status.thisTeam.teamInfo} />
-            <RosterSinglePick
+            <RosterEdit
               lineup={status.thisTeam.lineup}
               teamInfo={status.thisTeam.teamInfo}
               home={home}

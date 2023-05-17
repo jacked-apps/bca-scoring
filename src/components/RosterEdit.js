@@ -5,7 +5,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 
 import React, { useState } from 'react';
 
-const RosterSinglePick = ({ lineup, setEdit }) => {
+const RosterEdit = ({ lineup, setEdit }) => {
   const PlainView = ({ index, playerName, locked }) => {
     return (
       <>
@@ -13,7 +13,9 @@ const RosterSinglePick = ({ lineup, setEdit }) => {
           <Text variant='titleMedium'>Player {index + 1}</Text>
         </View>
         <View style={styles.center}>
-          <Text variant='titleLarge'>{playerName}</Text>
+          <Text variant='titleLarge' style={styles.centerText}>
+            {playerName}
+          </Text>
         </View>
         <View style={styles.right}>
           <Button
@@ -44,4 +46,4 @@ const RosterSinglePick = ({ lineup, setEdit }) => {
   );
 };
 
-export default RosterSinglePick;
+export default RosterEdit;
