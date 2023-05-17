@@ -9,3 +9,13 @@ export const fetchTeamList = setTeams => {
       setTeams(data.vals);
     });
 };
+
+export const fetchGames = (table, setGames) => {
+  const url1 = `${URL}?type=games&table=${table}`;
+  const teamArray = [];
+  fetch(url1)
+    .then(res => res.json())
+    .then(data => {
+      setGames(data.vals);
+    });
+};

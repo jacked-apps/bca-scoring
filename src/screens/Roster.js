@@ -67,15 +67,31 @@ const Roster = ({ route, navigation }) => {
     fetch(url1)
       .then(res => res.json())
       .then(data => {
-        setTeamData(data.vals);
-        setData([
-          { key: 'captain', value: data.vals.captain.name },
-          { key: 'player2', value: data.vals.player2.name },
-          { key: 'player3', value: data.vals.player3.name },
-          { key: 'player4', value: data.vals.player4.name },
-          { key: 'player5', value: data.vals.player5.name },
-          { key: 'sub', value: subName(home) },
-        ]);
+        if (data.vals && data.vals.captain) {
+          setTeamData(data.vals);
+
+          const captainName = data.vals.captain.name || '';
+          const player2Name = data.vals.player2.name || '';
+          const player3Name = data.vals.player3.name || '';
+
+          const dataArray = [
+            { key: 'captain', value: captainName },
+            { key: 'player2', value: player2Name },
+            { key: 'player3', value: player3Name },
+          ];
+          if (data.vals.player4 && data.vals.player4.name) {
+            const player4Name = data.vals.player4.name;
+            dataArray.push({ key: 'player4', value: player4Name });
+          }
+
+          if (data.vals.player5 && data.vals.player5.name) {
+            const player5Name = data.vals.player5.name;
+            dataArray.push({ key: 'player5', value: player5Name });
+          }
+
+          dataArray.push({ key: 'sub', value: subName(home) });
+          setData(dataArray);
+        }
       });
   }, []);
 
