@@ -12,7 +12,7 @@ const Scoring = ({ route, navigation }) => {
 
   useEffect(() => {
     if (isFocused && !firstRender.current) {
-      fetchGames(table, setGame);
+      fetchGames(table, setGames);
     }
     firstRender.current = false;
   }, [isFocused, navigationKey]);
