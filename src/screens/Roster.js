@@ -6,7 +6,7 @@ import { styles } from '../constants/StyleMaster';
 import { SelectList } from 'react-native-dropdown-select-list';
 import LoadingScreen from '../components/LoadingScreen';
 import TeamBlock from '../components/TeamBlock';
-import { getHighestHandicap } from '../constants/functions';
+import { getHighestHandicap, subName } from '../constants/functions';
 
 const Roster = ({ route, navigation }) => {
   const { table, home, teamName } = route.params;
@@ -46,11 +46,10 @@ const Roster = ({ route, navigation }) => {
       );
     } else return <Text>Choose all Players</Text>;
   };
-
+  subName;
   const handleSelect = (value, setPlayer, setHC) => {
-    const subName = ` SUB ${home ? 'HOME' : 'AWAY'}`;
     if (value === 'sub') {
-      setPlayer(subName);
+      setPlayer(subName(home));
       setHC(5);
     } else {
       setPlayer(teamData[value].name);
@@ -78,15 +77,14 @@ const Roster = ({ route, navigation }) => {
           { key: 'player3', value: data.vals.player3.name },
           { key: 'player4', value: data.vals.player4.name },
           { key: 'player5', value: data.vals.player5.name },
-          { key: 'sub', value: ` SUB ${home ? 'HOME' : 'AWAY'}` },
+          { key: 'sub', value: subName(home) },
         ]);
       });
   }, []);
 
   const handleSend = async () => {
     const obj = {
-      subHC,
-      subHC,
+      subHC: subHC,
       table: table,
       home: home,
       player1: playerOne,
@@ -184,21 +182,21 @@ const Roster = ({ route, navigation }) => {
                 />
               </View>
               <View style={styles.headline}>
-                {playerOne === ` SUB ${home ? 'HOME' : 'AWAY'}` && (
+                {playerOne === subName(home) && (
                   <SubHC
                     player1={playerTwo}
                     player2={playerThree}
                     setHC={setPlayerOneHC}
                   />
                 )}
-                {playerTwo === ` SUB ${home ? 'HOME' : 'AWAY'}` && (
+                {playerTwo === subName(home) && (
                   <SubHC
                     player1={playerOne}
                     player2={playerThree}
                     setHC={setPlayerTwoHC}
                   />
                 )}
-                {playerThree === ` SUB ${home ? 'HOME' : 'AWAY'}` && (
+                {playerThree === subName(home) && (
                   <SubHC
                     player1={playerTwo}
                     player2={playerOne}

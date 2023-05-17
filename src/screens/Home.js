@@ -5,6 +5,7 @@ import { URL, URL2 } from '../constants/url';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../constants/StyleMaster';
 import LoadingScreen from '../components/LoadingScreen';
+import { fetchTeamList } from '../constants/fetches';
 
 const Home = ({ navigation }) => {
   const [matches, setMatches] = useState({});
@@ -12,13 +13,7 @@ const Home = ({ navigation }) => {
   const [teams, setTeams] = useState();
 
   useEffect(() => {
-    const url1 = `${URL}?type=teamList`;
-    const teamArray = [];
-    fetch(url1)
-      .then(res => res.json())
-      .then(data => {
-        setTeams(data.vals);
-      });
+    fetchTeamList(setTeams);
   }, []);
 
   const handlePress = (page, table, home, teamName) => {

@@ -5,13 +5,7 @@ import { SelectList } from 'react-native-dropdown-select-list';
 
 import React, { useState } from 'react';
 
-const RosterSinglePick = ({ lineup, teamInfo }) => {
-  const [player1, setPlayer1] = useState({ edit: false });
-  const [player2, setPlayer2] = useState({ edit: false });
-  const [player3, setPlayer3] = useState({ edit: false });
-
-  console.log('singleLineup', lineup);
-
+const RosterSinglePick = ({ lineup, setEdit }) => {
   const PlainView = ({ index, playerName, locked }) => {
     return (
       <>
@@ -26,28 +20,13 @@ const RosterSinglePick = ({ lineup, teamInfo }) => {
             icon={locked ? 'account-lock' : 'square-edit-outline'}
             mode='contained'
             disabled={locked}
+            onPress={() => setEdit(index + 1)}
           ></Button>
         </View>
       </>
     );
   };
 
-  const EditView = ({ index, playerName, locked }) => {
-    const data = {};
-    return (
-      <>
-        <View style={styles.left}>
-          <Text variant='titleMedium'>Player {index + 1}</Text>
-        </View>
-        <SelectList
-          boxStyles={styles.selectBox}
-          inputStyles={styles.selectInput}
-          data={data}
-          setSelected={value => handleSelect(value)}
-        />
-      </>
-    );
-  };
   return (
     <View style={styles.headline}>
       {Object.entries(lineup).map(([key, player], index) => {

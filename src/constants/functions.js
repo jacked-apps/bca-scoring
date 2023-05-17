@@ -26,3 +26,18 @@ export function getHighestHandicap(player1Name, player2Name, teamData) {
     .sort((a, b) => b - a);
   return playerHandicaps[0];
 }
+export const getChoices = (team, line, pos) => {
+  const wholeTeam = Object.values(team).map(obj => obj.name);
+  wholeTeam.splice(0, 2);
+  const namesToRemove = Object.values(line).map(obj => obj.name);
+  wholeTeam.push(subName(pos));
+  const available = wholeTeam.filter(name => !namesToRemove.includes(name));
+  const data = [];
+  available.map(player => {
+    data.push({ key: player, value: player });
+  });
+  return data;
+};
+export const subName = home => {
+  return ` SUB ${home ? 'HOME' : 'AWAY'}`;
+};
