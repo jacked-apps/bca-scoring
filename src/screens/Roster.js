@@ -77,15 +77,14 @@ const Roster = ({ route, navigation }) => {
           { key: 'player3', value: data.vals.player3.name },
           { key: 'player4', value: data.vals.player4.name },
           { key: 'player5', value: data.vals.player5.name },
-          { key: 'sub', value: ` SUB ${home ? 'HOME' : 'AWAY'}` },
+          { key: 'sub', value: subName(home) },
         ]);
       });
   }, []);
 
   const handleSend = async () => {
     const obj = {
-      subHC,
-      subHC,
+      subHC: subHC,
       table: table,
       home: home,
       player1: playerOne,
@@ -183,21 +182,21 @@ const Roster = ({ route, navigation }) => {
                 />
               </View>
               <View style={styles.headline}>
-                {playerOne === ` SUB ${home ? 'HOME' : 'AWAY'}` && (
+                {playerOne === subName(home) && (
                   <SubHC
                     player1={playerTwo}
                     player2={playerThree}
                     setHC={setPlayerOneHC}
                   />
                 )}
-                {playerTwo === ` SUB ${home ? 'HOME' : 'AWAY'}` && (
+                {playerTwo === subName(home) && (
                   <SubHC
                     player1={playerOne}
                     player2={playerThree}
                     setHC={setPlayerTwoHC}
                   />
                 )}
-                {playerThree === ` SUB ${home ? 'HOME' : 'AWAY'}` && (
+                {playerThree === subName(home) && (
                   <SubHC
                     player1={playerTwo}
                     player2={playerOne}

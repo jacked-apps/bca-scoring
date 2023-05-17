@@ -62,7 +62,9 @@ const Loading = ({ route, navigation }) => {
                 lineup={status.thisTeam.lineup}
                 teamInfo={status.thisTeam.teamInfo}
                 home={home}
+                table={table}
                 position={edit ? edit : 1}
+                setEdit={setEdit}
               />
             )}
 

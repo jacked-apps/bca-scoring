@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
+import { postEditRoster } from '../constants/posts';
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native-paper';
+import { Text, Button } from 'react-native-paper';
 import LoadingScreen from '../components/LoadingScreen';
 import { URL } from '../constants/url';
 import { SelectList } from 'react-native-dropdown-select-list';
@@ -55,6 +56,7 @@ const TestScreen = ({ route, navigation }) => {
           <Text variant='headlineMedium'>Table {table}</Text>
           <Text variant='headlineMedium'>{home ? 'home' : 'away'}</Text>
           <Text variant='headlineMedium'>{teamData.TeamName}</Text>
+          <Button onPress={postEditRoster}>send shit</Button>
         </>
       ) : (
         <LoadingScreen />

@@ -39,5 +39,5 @@ export const getChoices = (team, line, pos) => {
   return data;
 };
 export const subName = home => {
-  return ` SUB ${home ? 'home' : 'away'}`;
+  return ` SUB ${home ? 'HOME' : 'AWAY'}`;
 };
