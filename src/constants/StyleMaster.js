@@ -104,4 +104,26 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     alignItems: 'center',
   },
+  scoreboardContainer: {
+    height: height * 0.25,
+    flexDirection: 'row',
+  },
+  scoreboardHomeView: {
+    backgroundColor: 'lightgray',
+    borderWidth: 2,
+    width: width * 0.4,
+  },
+  scoreboardAwayView: {
+    backgroundColor: 'lightblue',
+    borderWidth: 2,
+    width: width * 0.4,
+  },
+  scoreboardStats: {
+    backgroundColor: 'yellow',
+    borderWidth: 2,
+    width: width * 0.2,
+  },
+  scoreTeamContainer: {
+    padding: 5,
+  },
 });
