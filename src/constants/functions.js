@@ -41,3 +41,13 @@ export const getChoices = (team, line, pos) => {
 export const subName = home => {
   return ` SUB ${home ? 'HOME' : 'AWAY'}`;
 };
+
+export const shortenName = name => {
+  if (name.length > 12) {
+    const nameParts = name.split(' ');
+    const firstName = nameParts[0];
+    const lastNameInitial = nameParts[nameParts.length - 1].charAt(0);
+    return `${firstName} ${lastNameInitial}.`;
+  }
+  return name;
+};
