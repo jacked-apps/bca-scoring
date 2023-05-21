@@ -76,7 +76,12 @@ const Scoring = ({ route, navigation }) => {
         Alert.alert(
           `${teamWinner} is the winner tonight!`,
           'See you next week',
-          [{ text: 'Confirm' }],
+          [
+            {
+              text: 'Confirm',
+              onPress: () => navigation.navigate('End Screen'),
+            },
+          ],
           {
             cancelable: true,
           },
