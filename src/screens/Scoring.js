@@ -1,17 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import { fetchGames, fetchGameStats } from '../constants/fetches';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import Scoreboard from '../components/Scoreboard';
 import ExpandableContainer from '../components/ExpandableContainer';
+import GamesList from '../components/GamesList';
 
 const Scoring = ({ route, navigation }) => {
   const [games, setGames] = useState();
   const [gameStats, setGameStats] = useState();
   const [navigationKey, setNavigationKey] = useState(0);
+  const [teamWinner, setTeamWinner] = useState();
   const { table, home } = route.params;
   const isFocused = useIsFocused();
   const firstRender = useRef(false);
+
+  const refreshData = useCallback(() => {
+    fetchGames(table, setGames);
+    fetchGameStats(table, setGameStats);
+  }, [table]);
 
   useEffect(() => {
     if (isFocused && !firstRender.current) {
@@ -19,15 +26,119 @@ const Scoring = ({ route, navigation }) => {
       fetchGameStats(table, setGameStats);
     }
     firstRender.current = false;
-  }, [isFocused, navigationKey]);
+  }, [isFocused, navigationKey, refreshData]);
+
+  useEffect(() => {
+    if (!teamWinner) {
+      if (gameStats && gameStats.home.wins >= gameStats.home.forWin) {
+        setTeamWinner(gameStats.home.name); // Set the name of the winning team
+        Alert.alert(
+          'Home Team Wins',
+          `${gameStats.home.name} wins!`,
+          [{ text: 'Confirm' }],
+          {
+            cancelable: true,
+          },
+        );
+      }
+      if (gameStats && gameStats.away.wins >= gameStats.away.forWin) {
+        setTeamWinner(gameStats.away.name); // Set the name of the winning team
+        Alert.alert(
+          'Away Team Wins',
+          `${gameStats.away.name} wins!`,
+          [{ text: 'Confirm' }],
+          {
+            cancelable: true,
+          },
+        );
+      }
+    }
+  }, [gameStats]);
+
+  useEffect(() => {
+    checkAllGamesComplete();
+  }, [games]);
+
+  const checkAllGamesComplete = () => {
+    if (games) {
+      const allGamesComplete = Object.values(games).every(
+        game => !!game.winner,
+      );
+
+      if (allGamesComplete) {
+        if (!teamWinner) {
+          Alert.alert(
+            'Looks like you have tied.  If all games were entered correctly proceed to Tie Breaker',
+            'hello',
+            [{ text: 'Tie Breaker' }],
+          );
+        }
+        Alert.alert(
+          `${teamWinner} is the winner tonight!`,
+          'See you next week',
+          [
+            {
+              text: 'Cancel',
+            },
+            {
+              text: 'End Night',
+              onPress: () => navigation.navigate('End Screen'),
+            },
+          ],
+          {
+            cancelable: true,
+          },
+        );
+      }
+    }
+  };
+
+  const checkTiePossibility = gameStats => {
+    let homeTieNumber, awayTieNumber;
+
+    if (gameStats.home.forTie === 'x') {
+      return false;
+    } else {
+      return true;
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      {gameStats && <Scoreboard stats={gameStats} />}
-    </View>
+    <>
+      {gameStats && games && (
+        <View style={styles.container}>
+          <Scoreboard stats={gameStats} />
+          <View style={styles.rackTitle}>
+            <Text style={styles.rackTitleText}>Rack</Text>
+            <Text style={styles.rackTitleText}>Games</Text>
+            <Text style={styles.rackTitleText}>Break</Text>
+          </View>
+          <GamesList
+            table={table}
+            games={games}
+            gameStats={gameStats}
+            navigation={navigation}
+            refreshData={refreshData}
+          />
+        </View>
+      )}
+    </>
   );
 };
 
 export default Scoring;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'lightblue',
+  },
+  rackTitle: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#fff9a6',
+    borderRadius: 18,
+  },
+  rackTitleText: {
+    fontSize: 24,
+  },
+});

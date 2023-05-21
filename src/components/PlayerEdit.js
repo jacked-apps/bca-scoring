@@ -33,7 +33,6 @@ const PlayerEdit = ({
 
   const handleSend = async () => {
     setDisableSend(true);
-    console.log('handleSend', table, home, position, selected, subHC);
     await postEditRoster(table, home, position, selected, subHC);
     await fetchData();
     setEdit(false);

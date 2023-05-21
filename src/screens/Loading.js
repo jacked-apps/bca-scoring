@@ -30,7 +30,6 @@ const Loading = ({ route, navigation }) => {
         data.vals.teamStatus === 'open' &&
           navigation.navigate('Roster', { table: table, home: home });
         setStatus(data.vals);
-        //console.log('status', data.vals);
       });
   };
 
