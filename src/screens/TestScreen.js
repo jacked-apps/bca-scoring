@@ -6,10 +6,14 @@ import LoadingScreen from '../components/LoadingScreen';
 import { URL } from '../constants/url';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { Ionicons } from '@expo/vector-icons';
+import GamesList from '../components/GamesList';
+import { fetchGames } from '../constants/fetches';
 
 const TestScreen = ({ route, navigation }) => {
   const { table, home } = route.params;
   const [teamData, setTeamData] = useState();
+  const [games, setGames] = useState();
+
   const [selected, setSelected] = useState();
   const [handicap, setHandicap] = useState();
   const metaData = {
@@ -46,6 +50,7 @@ const TestScreen = ({ route, navigation }) => {
     setHandicap(key);
   };
   useEffect(() => {
+    fetchGames(setGames);
     const url1 = `${URL}?type=teamInfo&table=${table}&home=${home}`;
     const teamArray = [];
     fetch(url1)
@@ -54,29 +59,15 @@ const TestScreen = ({ route, navigation }) => {
         setTeamData(data.vals);
       });
   }, []);
-
+  console.log('test', games);
   return (
     <View>
-      <SelectList
-        data={data}
-        setSelected={(value, key, second) => console.log(value, key, selected)}
-        //boxStyles={{}}
-        //inputStyles={{}}
-        //dropdownStyles={{}}
-        //dropdownItemStyles={{}}
-        //dropdownTextStyles={{}}
-        placeholder={'Select from this stuff'}
-        maxHeight={200}
-      />
-      <Text>
-        name:{selected} H/C: {handicap}
-      </Text>
       {teamData ? (
         <>
           <Text variant='headlineMedium'>Table {table}</Text>
           <Text variant='headlineMedium'>{home ? 'home' : 'away'}</Text>
           <Text variant='headlineMedium'>{teamData.TeamName}</Text>
-          <Button onPress={() => postEditRoster(table, home)}>send shit</Button>
+          <GamesList />
         </>
       ) : (
         <LoadingScreen />

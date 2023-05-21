@@ -1,8 +1,6 @@
 import { URL } from './url';
 
 export const postEditRoster = async (table, home, position, player, subHC) => {
-  console.log('handleSend', table, home, position, player, subHC);
-
   const obj = {
     subHC: subHC,
     table: table,
@@ -10,7 +8,6 @@ export const postEditRoster = async (table, home, position, player, subHC) => {
     position: position,
     player: player,
   };
-  console.log('object ', obj.subHC);
   const url = `${URL}?action=editRoster`;
 
   try {
@@ -27,7 +24,6 @@ export const postEditRoster = async (table, home, position, player, subHC) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.text();
-    console.log('editRoster ', data);
 
     // handle success response here
     //navigation.navigate('Loading', { table, home });
@@ -54,6 +50,68 @@ export const postAddRoster = async (
     player3: player3,
   };
   const url = `${URL}?action=addRoster`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.text();
+    console.log(data);
+
+    // handle success response here
+  } catch (error) {
+    console.error('Error:', error.message);
+    // handle error here
+  }
+};
+
+export const postSetWinner = async (table, game, playerName) => {
+  'post stuff', table, game, playerName;
+  const obj = {
+    table: table,
+    game: game,
+    playerName: playerName,
+  };
+  const url = `${URL}?action=postWinner`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.text();
+    console.log(data);
+
+    // handle success response here
+  } catch (error) {
+    console.error('Error:', error.message);
+    // handle error here
+  }
+};
+
+export const postClearWinner = async (table, game) => {
+  const obj = {
+    table: table,
+    game: game,
+  };
+  const url = `${URL}?action=clearWinner`;
 
   try {
     const response = await fetch(url, {

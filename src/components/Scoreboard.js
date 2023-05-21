@@ -4,7 +4,6 @@ import { styles } from '../constants/StyleScoreboard';
 import ScoreBoardTeam from './ScoreBoardTeam';
 
 const Scoreboard = ({ stats }) => {
-  console.log('scoreboard', stats);
   return (
     <View style={styles.container}>
       <View style={styles.homeView}>
