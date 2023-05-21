@@ -67,28 +67,34 @@ const Scoring = ({ route, navigation }) => {
 
       if (allGamesComplete) {
         if (!teamWinner) {
-          Alert.alert(
-            'Looks like you have tied.  If all games were entered correctly proceed to Tie Breaker',
-            'hello',
-            [{ text: 'Tie Breaker' }],
-          );
+          Alert.alert('Tie Game!', 'Please proceed to Tie Breaker Round', [
+            {
+              text: 'Tie Breaker',
+              onPress: () =>
+                navigation.navigate('Tie Roster', {
+                  table: table,
+                  home: home,
+                }),
+            },
+          ]);
         }
-        Alert.alert(
-          `${teamWinner} is the winner tonight!`,
-          'See you next week',
-          [
+        teamWinner &&
+          Alert.alert(
+            `${teamWinner} is the winner tonight!`,
+            'See you next week',
+            [
+              {
+                text: 'Cancel',
+              },
+              {
+                text: 'End Night',
+                onPress: () => navigation.navigate('End Screen'),
+              },
+            ],
             {
-              text: 'Cancel',
+              cancelable: true,
             },
-            {
-              text: 'End Night',
-              onPress: () => navigation.navigate('End Screen'),
-            },
-          ],
-          {
-            cancelable: true,
-          },
-        );
+          );
       }
     }
   };
