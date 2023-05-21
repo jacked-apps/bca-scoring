@@ -78,7 +78,10 @@ const Scoring = ({ route, navigation }) => {
           'See you next week',
           [
             {
-              text: 'Confirm',
+              text: 'Cancel',
+            },
+            {
+              text: 'End Night',
               onPress: () => navigation.navigate('End Screen'),
             },
           ],
