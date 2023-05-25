@@ -168,3 +168,66 @@ export const postTieRoster = async (table, home, player1, player2, player3) => {
     // handle error here
   }
 };
+
+export const postSetTieWinner = async (table, game, playerName) => {
+  'post stuff', table, game, playerName;
+  const obj = {
+    table: table,
+    game: game,
+    player: playerName,
+  };
+  const url = `${URL}?action=setTieWinner`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.text();
+    console.log(data);
+
+    // handle success response here
+  } catch (error) {
+    console.error('Error:', error.message);
+    // handle error here
+  }
+};
+
+export const postClearTieWinner = async (table, game) => {
+  console.log('clear tie win', table, game);
+  const obj = {
+    table: table,
+    game: game,
+  };
+  const url = `${URL}?action=clearTieWinner`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.text();
+    console.log(data);
+
+    // handle success response here
+  } catch (error) {
+    console.error('Error:', error.message);
+    // handle error here
+  }
+};

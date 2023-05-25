@@ -1,5 +1,8 @@
 {
   "expo": {
+    "extra": {
+      "REACT_APP_URL": "https://script.google.com/macros/s/AKfycbxmNlibauhM4sV2ak6zteFYPimfMe6aKJ8UjdMD7iy3ILdPCaM_yOXra_A-7COh-780Ow/exec"
+    },
     "name": "expo-navigation",
     "slug": "expo-navigation",
     "version": "1.0.0",

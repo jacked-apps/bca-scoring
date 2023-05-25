@@ -4,7 +4,7 @@ import PlayerButton from './PlayerButton';
 import React from 'react';
 import GameEditButton from './GameEditButton';
 
-const GamesList = ({ games, gameStats, navigation, table, refreshData }) => {
+const GamesList = ({ games, navigation, table, refreshData, tie }) => {
   const handleRefresh = () => {
     refreshData();
   };
@@ -20,9 +20,9 @@ const GamesList = ({ games, gameStats, navigation, table, refreshData }) => {
                   playerName={games[gameKey].breaker}
                   role='breaker'
                   winner={games[gameKey].winner}
-                  navigation={navigation}
                   gameKey={gameKey}
                   refreshData={refreshData}
+                  tie={tie}
                 />
               </View>
               <View style={[styles.column, styles.centerColumn]}>
@@ -30,8 +30,8 @@ const GamesList = ({ games, gameStats, navigation, table, refreshData }) => {
                   table={table}
                   gameKey={gameKey}
                   winner={games[gameKey].winner}
-                  navigation={navigation}
                   refreshData={refreshData}
+                  tie={tie}
                 />
               </View>
               <View style={[styles.column, styles.rightColumn]}>
@@ -39,10 +39,10 @@ const GamesList = ({ games, gameStats, navigation, table, refreshData }) => {
                   playerName={games[gameKey].racker}
                   role='racker'
                   winner={games[gameKey].winner}
-                  navigation={navigation}
                   table={table}
                   refreshData={refreshData}
                   gameKey={gameKey}
+                  tie={tie}
                 />
               </View>
             </View>
