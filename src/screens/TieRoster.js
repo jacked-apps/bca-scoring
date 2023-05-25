@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
-import { fetchGameStats } from '../constants/fetches';
+import { fetchGameStats, fetchTieGames } from '../constants/fetches';
 import Scoreboard from '../components/Scoreboard';
 import LoadingScreen from '../components/LoadingScreen';
 import { SelectList } from 'react-native-dropdown-select-list';
@@ -10,6 +10,7 @@ import { postTieRoster } from '../constants/posts';
 const TieRoster = ({ route, navigation }) => {
   const { table, home } = route.params;
   const [stats, setStats] = useState();
+  const [games, setGames] = useState();
   const [data, setData] = useState();
   const [playerOne, setPlayerOne] = useState('');
   const [playerTwo, setPlayerTwo] = useState('');
@@ -17,8 +18,20 @@ const TieRoster = ({ route, navigation }) => {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
+    fetchTieGames(table, setGames);
     fetchGameStats(table, setStats);
   }, []);
+
+  useEffect(() => {
+    if (games) {
+      if (!home && games['1'].breaker) {
+        navigation.navigate('Tie Scoring', { home: home, table: table });
+      }
+      if (home && games['1'].racker) {
+        navigation.navigate('Tie Scoring', { home: home, table: table });
+      }
+    }
+  }, [games]);
 
   useEffect(() => {
     if (stats) {
