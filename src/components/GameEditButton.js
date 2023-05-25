@@ -1,9 +1,9 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { postClearWinner } from '../constants/posts';
+import { postClearWinner, postClearTieWinner } from '../constants/posts';
 
-const GameEditButton = ({ gameKey, winner, refreshData, table }) => {
+const GameEditButton = ({ gameKey, winner, refreshData, table, tie }) => {
   const buttonText = gameKey.replace('game', ''); // Extract the number from the gameKey
   const isWinner = !!winner;
   const isDisabled = !isWinner;
@@ -23,7 +23,12 @@ const GameEditButton = ({ gameKey, winner, refreshData, table }) => {
   };
 
   const handleConfirm = async () => {
-    await postClearWinner(table, buttonText);
+    if (!tie) {
+      await postClearWinner(table, buttonText);
+    }
+    if (tie) {
+      await postClearTieWinner(table, buttonText);
+    }
     refreshData();
   };
 

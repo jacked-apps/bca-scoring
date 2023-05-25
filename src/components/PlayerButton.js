@@ -1,10 +1,10 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, Alert } from 'react-native';
-import { postSetWinner } from '../constants/posts';
+import { postSetTieWinner, postSetWinner } from '../constants/posts';
 
 const PlayerButton = ({
   playerName,
-  role,
+  tie,
   winner,
   table,
   gameKey,
@@ -27,7 +27,12 @@ const PlayerButton = ({
   };
 
   const handleConfirm = async () => {
-    await postSetWinner(table, gameNumber, playerName);
+    if (!tie) {
+      await postSetWinner(table, gameNumber, playerName);
+    }
+    if (tie) {
+      await postSetTieWinner(table, gameNumber, playerName);
+    }
     refreshData();
   };
 
@@ -65,7 +70,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   homeButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#0050B5',
   },
   awayButton: {
     backgroundColor: 'green',

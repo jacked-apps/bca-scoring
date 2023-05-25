@@ -1,4 +1,7 @@
-import { URL } from './url';
+import { URL } from '../constants/url';
+//import Constants from 'expo-constants';
+
+//const URL = Constants.manifest.extraREACT_APP_URL;
 
 export const fetchTeamList = setTeams => {
   const url1 = `${URL}?type=teamList`;
@@ -26,5 +29,14 @@ export const fetchGameStats = (table, setGameStats) => {
     .then(res => res.json())
     .then(data => {
       setGameStats(data.vals);
+    });
+};
+export const fetchTieGames = (table, setTieGame) => {
+  const url1 = `${URL}?type=tieGames&table=${table}`;
+  const teamArray = [];
+  fetch(url1)
+    .then(res => res.json())
+    .then(data => {
+      setTieGame(data.vals);
     });
 };

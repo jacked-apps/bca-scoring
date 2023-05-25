@@ -3,13 +3,11 @@ import { fetchGames, fetchGameStats } from '../constants/fetches';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import Scoreboard from '../components/Scoreboard';
-import ExpandableContainer from '../components/ExpandableContainer';
 import GamesList from '../components/GamesList';
 
 const Scoring = ({ route, navigation }) => {
   const [games, setGames] = useState();
   const [gameStats, setGameStats] = useState();
-  const [navigationKey, setNavigationKey] = useState(0);
   const [teamWinner, setTeamWinner] = useState();
   const { table, home } = route.params;
   const isFocused = useIsFocused();
@@ -26,31 +24,35 @@ const Scoring = ({ route, navigation }) => {
       fetchGameStats(table, setGameStats);
     }
     firstRender.current = false;
-  }, [isFocused, navigationKey, refreshData]);
+  }, [isFocused, refreshData]);
 
   useEffect(() => {
     if (!teamWinner) {
       if (gameStats && gameStats.home.wins >= gameStats.home.forWin) {
-        setTeamWinner(gameStats.home.name); // Set the name of the winning team
-        Alert.alert(
-          'Home Team Wins',
-          `${gameStats.home.name} wins!`,
-          [{ text: 'Confirm' }],
-          {
-            cancelable: true,
-          },
-        );
+        setTeamWinner(gameStats.home.name);
+        if (isFocused) {
+          Alert.alert(
+            'Home Team Wins',
+            `${gameStats.home.name} wins!`,
+            [{ text: 'Confirm' }],
+            {
+              cancelable: true,
+            },
+          );
+        }
       }
       if (gameStats && gameStats.away.wins >= gameStats.away.forWin) {
-        setTeamWinner(gameStats.away.name); // Set the name of the winning team
-        Alert.alert(
-          'Away Team Wins',
-          `${gameStats.away.name} wins!`,
-          [{ text: 'Confirm' }],
-          {
-            cancelable: true,
-          },
-        );
+        setTeamWinner(gameStats.away.name);
+        if (isFocused) {
+          Alert.alert(
+            'Away Team Wins',
+            `${gameStats.away.name} wins!`,
+            [{ text: 'Confirm' }],
+            {
+              cancelable: true,
+            },
+          );
+        }
       }
     }
   }, [gameStats]);
@@ -67,18 +69,20 @@ const Scoring = ({ route, navigation }) => {
 
       if (allGamesComplete) {
         if (!teamWinner) {
-          Alert.alert('Tie Game!', 'Please proceed to Tie Breaker Round', [
-            {
-              text: 'Tie Breaker',
-              onPress: () =>
-                navigation.navigate('Tie Roster', {
-                  table: table,
-                  home: home,
-                }),
-            },
-          ]);
+          if (isFocused) {
+            Alert.alert('Tie Game!', 'Please proceed to Tie Breaker Round', [
+              {
+                text: 'Tie Breaker',
+                onPress: () =>
+                  navigation.navigate('Tie Roster', {
+                    table: table,
+                    home: home,
+                  }),
+              },
+            ]);
+          }
         }
-        teamWinner &&
+        if (teamWinner && isFocused) {
           Alert.alert(
             `${teamWinner} is the winner tonight!`,
             'See you next week',
@@ -95,6 +99,7 @@ const Scoring = ({ route, navigation }) => {
               cancelable: true,
             },
           );
+        }
       }
     }
   };
