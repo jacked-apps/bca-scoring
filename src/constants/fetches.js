@@ -1,42 +1,67 @@
 import { URL } from '../constants/url';
-//import Constants from 'expo-constants';
+// import Constants from 'expo-constants';
 
-//const URL = Constants.manifest.extraREACT_APP_URL;
+// const URL = Constants.manifest.extraREACT_APP_URL;
 
-export const fetchTeamList = setTeams => {
+export const fetchTeamList = async setTeams => {
   const url1 = `${URL}?type=teamList`;
-  const teamArray = [];
-  fetch(url1)
-    .then(res => res.json())
-    .then(data => {
-      setTeams(data.vals);
-    });
+  try {
+    const res = await fetch(url1);
+    const data = await res.json();
+    setTeams(data.vals);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-export const fetchGames = (table, setGames) => {
+export const fetchGames = async (table, setGames) => {
   const url1 = `${URL}?type=games&table=${table}`;
-  const teamArray = [];
-  fetch(url1)
-    .then(res => res.json())
-    .then(data => {
-      setGames(data.vals);
-    });
+  try {
+    const res = await fetch(url1);
+    const data = await res.json();
+    setGames(data.vals);
+  } catch (error) {
+    console.error(error);
+  }
 };
-export const fetchGameStats = (table, setGameStats) => {
+
+export const fetchGameStats = async (table, setGameStats) => {
   const url1 = `${URL}?type=tableStats&table=${table}`;
-  const teamArray = [];
-  fetch(url1)
-    .then(res => res.json())
-    .then(data => {
-      setGameStats(data.vals);
-    });
+  try {
+    const res = await fetch(url1);
+    const data = await res.json();
+    setGameStats(data.vals);
+  } catch (error) {
+    console.error(error);
+  }
 };
-export const fetchTieGames = (table, setTieGame) => {
+
+export const fetchTieGames = async (table, setTieGame) => {
   const url1 = `${URL}?type=tieGames&table=${table}`;
-  const teamArray = [];
-  fetch(url1)
-    .then(res => res.json())
-    .then(data => {
-      setTieGame(data.vals);
-    });
+  try {
+    const res = await fetch(url1);
+    const data = await res.json();
+    setTieGame(data.vals);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchTeamData = async (table, home, setTeamData) => {
+  const url = `${URL}?type=teamInfo&table=${table}&home=${home}`;
+  console.log('fetchTeam url', url);
+  try {
+    const res = await fetch(url);
+    const responseText = await res.text();
+    console.log('Response:', responseText);
+    const data = JSON.parse(responseText);
+    setTeamData(data.vals);
+    if (data.vals && data.vals.captain) {
+      return data.vals;
+    }
+    return null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };

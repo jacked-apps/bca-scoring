@@ -24,7 +24,13 @@ const TieScoring = ({ route, navigation }) => {
         Alert.alert(
           'Home Team Wins',
           `${stats.home.name} wins!`,
-          [{ text: 'Confirm' }],
+          [
+            {
+              text: 'Confirm',
+              onPress: () =>
+                navigation.navigate('End Screen', { home: home, table: table }),
+            },
+          ],
           {
             cancelable: true,
           },

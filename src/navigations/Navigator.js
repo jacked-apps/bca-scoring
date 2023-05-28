@@ -1,4 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import LogIn from '../screens/LogIn';
 import Home from '../screens/Home';
 import SecondPage from '../screens/SecondPage';
 import EndScreen from '../screens/EndScreen';
@@ -14,7 +15,8 @@ const Stack = createStackNavigator();
 
 export function Navigator() {
   return (
-    <Stack.Navigator headerStyle={{}} initialRouteName='Home'>
+    <Stack.Navigator headerStyle={{}} initialRouteName='Login'>
+      <Stack.Screen name='Login' component={LogIn} />
       <Stack.Screen name='Home' component={Home} />
       <Stack.Screen name='Loading' component={Loading} />
       <Stack.Screen name='Roster' component={Roster} />

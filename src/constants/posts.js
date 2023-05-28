@@ -1,4 +1,4 @@
-import { URL } from './url';
+import { URL, URL2 } from './url';
 
 export const postEditRoster = async (table, home, position, player, subHC) => {
   const obj = {
@@ -224,6 +224,34 @@ export const postClearTieWinner = async (table, game) => {
     }
     const data = await response.text();
     console.log(data);
+
+    // handle success response here
+  } catch (error) {
+    console.error('Error:', error.message);
+    // handle error here
+  }
+};
+export const postCheckEmail = async (email, setIsCurrent) => {
+  const obj = {
+    email: email,
+  };
+  const url = `${URL2}?action=emailIsCurrent`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.text();
+    setIsCurrent(JSON.parse(data));
 
     // handle success response here
   } catch (error) {

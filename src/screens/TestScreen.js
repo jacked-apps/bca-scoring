@@ -1,13 +1,11 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { postEditRoster } from '../constants/posts';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Text, Button } from 'react-native-paper';
 import LoadingScreen from '../components/LoadingScreen';
 import { URL } from '../constants/url';
-import { SelectList } from 'react-native-dropdown-select-list';
 import { Ionicons } from '@expo/vector-icons';
-import GamesList from '../components/GamesList';
-import { fetchGames } from '../constants/fetches';
+import { fetchGames, fetchTeamData } from '../constants/fetches';
+import { postCheckEmail } from '../constants/posts';
 
 const TestScreen = ({ route, navigation }) => {
   const { table, home } = route.params;
@@ -25,7 +23,10 @@ const TestScreen = ({ route, navigation }) => {
     { key: '2', value: 'two' },
     { key: '3', value: 'three' },
   ];
-
+  const handleEmailCheck = () => {
+    const email = 'shodbyed@gmail.com';
+    postCheckEmail(email);
+  };
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'CHECK ME OUT',
@@ -51,23 +52,18 @@ const TestScreen = ({ route, navigation }) => {
   };
   useEffect(() => {
     fetchGames(setGames);
-    const url1 = `${URL}?type=teamInfo&table=${table}&home=${home}`;
-    const teamArray = [];
-    fetch(url1)
-      .then(res => res.json())
-      .then(data => {
-        setTeamData(data.vals);
-      });
+    fetchTeamData(table, home, setTeamData);
   }, []);
-  console.log('test', games);
+
   return (
     <View>
       {teamData ? (
         <>
           <Text variant='headlineMedium'>Table {table}</Text>
           <Text variant='headlineMedium'>{home ? 'home' : 'away'}</Text>
-          <Text variant='headlineMedium'>{teamData.TeamName}</Text>
-          <GamesList />
+          <Button mode='contained' onPress={handleEmailCheck}>
+            try email
+          </Button>
         </>
       ) : (
         <LoadingScreen />

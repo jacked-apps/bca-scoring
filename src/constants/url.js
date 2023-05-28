@@ -1,5 +1,5 @@
 export const URL =
-  'https://script.google.com/macros/s/AKfycbxmNlibauhM4sV2ak6zteFYPimfMe6aKJ8UjdMD7iy3ILdPCaM_yOXra_A-7COh-780Ow/exec';
+  'https://script.google.com/macros/s/AKfycbw33BzQTjoQ-s_w0TifyYYXU6IXaaFnAx_JT23lhN6135nyEioFHsVnDHTEMAg0CO4Qqw/exec';
 
 export const URL2 =
-  'https://script.google.com/macros/s/AKfycbzhabv_DQom5N4hSsCfq3WR-2gJObgpOjoJJ7xlw-XWPONOAirrtM_MhH0ZvV4Ikhs8/exec';
+  'https://script.google.com/macros/s/AKfycbzAyh5n4VE4k3KvkSsGi_OyTcKXMtU4yH8ZL8gOiMrUgVRINw90SKB1txlHxl0KcyC-/exec';
