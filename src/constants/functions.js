@@ -100,7 +100,11 @@ export function setResponses(status, navigation) {
       text = 'Please change your password manually';
       break;
   }
+  return [good, String(title), String(text)];
+}
 
+export const popUpAlert = (response, navigation) => {
+  const [good, title, text] = response;
   Alert.alert(
     title,
     text,
@@ -113,6 +117,11 @@ export function setResponses(status, navigation) {
             },
           },
         ]
-      : [{ text: 'Try again', onPress: () => {} }],
+      : [
+          {
+            text: 'Try again',
+            onPress: () => {},
+          },
+        ],
   );
-}
+};

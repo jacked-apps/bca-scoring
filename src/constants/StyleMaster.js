@@ -4,10 +4,20 @@ export const { width, height } = Dimensions.get('window');
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#00ced1',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 30,
+  },
+  homeScroll: {
+    height: height,
+    backgroundColor: '#00ced1',
+  },
+  homeTable: {
+    flex: 1,
+    backgroundColor: '#00ced1',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 25,
   },
   buttonView: {
     display: 'flex',
@@ -19,6 +29,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 5,
     width: width * 0.45,
     marginHorizontal: 10,
+    backgroundColor: '#483d8b',
   },
   safeArea: {
     flex: 1,
