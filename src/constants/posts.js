@@ -259,3 +259,64 @@ export const postCheckEmail = async (email, setIsCurrent) => {
     // handle error here
   }
 };
+
+export const postValidate = async (email, password, setStatus) => {
+  const obj = {
+    email: email,
+    password: password,
+  };
+  const url = `${URL2}?action=validate`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.text();
+    console.log('validate', data, typeof data);
+    setStatus(data);
+
+    // handle success response here
+  } catch (error) {
+    console.error('Error:', error.message);
+    // handle error here
+  }
+};
+
+export const postUpdate = async (email, password, setStatus) => {
+  const obj = {
+    email: email,
+    password: password,
+  };
+  const url = `${URL2}?action=update`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(obj),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.text();
+    setStatus(data);
+
+    // handle success response here
+  } catch (error) {
+    console.error('Error:', error.message);
+    // handle error here
+  }
+};

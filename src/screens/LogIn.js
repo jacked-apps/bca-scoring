@@ -1,25 +1,56 @@
-import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+} from 'react-native';
 import { Button, Text, Card, Avatar } from 'react-native-paper';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EmailInput from '../components/EmailInput';
-import { postCheckEmail } from '../constants/posts';
+import { postCheckEmail, postValidate, postUpdate } from '../constants/posts';
 import PasswordInput from '../components/PasswordInput';
 import PasswordReset from '../components/PasswordReset';
+import { useIsFocused } from '@react-navigation/native';
+import { setResponses } from '../constants/functions';
 
-const LogIn = () => {
-  const [email, setEmail] = useState('shodbyed@gmail.com');
+const LogIn = ({ navigation }) => {
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [needPassword, setNeedPassword] = useState(false);
-  const [checked, setChecked] = useState(true);
-  const [isCurrent, setIsCurrent] = useState(true);
-  const [isUpdateReady, setIsUpdateReady] = useState(false);
+  const [needPassword, setNeedPassword] = useState();
+  const [checked, setChecked] = useState();
+  const [loading, setLoading] = useState();
+  const [isCurrent, setIsCurrent] = useState();
+  const [isUpdateReady, setIsUpdateReady] = useState();
+  const [status, setStatus] = useState();
+  const isFocused = useIsFocused();
 
-  const handleSendEmail = () => {
-    postCheckEmail(email, setIsCurrent);
-    setChecked(true);
+  useEffect(() => {
+    if (status && isFocused) {
+      setResponses(status, navigation);
+    }
+  }, [status, isFocused]);
+
+  const handleClearEmail = () => {
+    setEmail('');
+    setIsCurrent(false);
+    setChecked(false);
   };
-  const handleSendPassWord = () => {};
-  const handleUpdatePassWord = () => {};
+
+  const handleSendEmail = async () => {
+    setLoading(true);
+    setChecked(true);
+    await postCheckEmail(email, setIsCurrent);
+    setLoading(false);
+  };
+
+  const handleSendPassWord = () => {
+    postValidate(email, password, setStatus);
+  };
+
+  const handleUpdatePassWord = () => {
+    postUpdate(email, password, setStatus);
+  };
 
   const leftContent = (
     <Avatar.Icon
@@ -44,11 +75,19 @@ const LogIn = () => {
             left={() => leftContent}
           />
           <Card.Content>
-            {!isCurrent && <EmailInput setEmail={setEmail} checked={checked} />}
+            {!isCurrent && (
+              <EmailInput
+                email={email}
+                setEmail={setEmail}
+                setChecked={setChecked}
+              />
+            )}
             {!isCurrent && checked && (
               <Text variant='labelLarge' style={{ color: 'red' }}>
-                {email} is not associated with a current player. Please try
-                again or contact Ed.
+                {loading
+                  ? 'Loading'
+                  : `${email} is not associated with a current player. Please try
+                again or contact Ed.`}
               </Text>
             )}
             {isCurrent && !needPassword && (
@@ -57,6 +96,7 @@ const LogIn = () => {
                 password={password}
                 setPassword={setPassword}
                 setNeedPassword={setNeedPassword}
+                loading={loading}
               />
             )}
             {needPassword && (
@@ -66,10 +106,16 @@ const LogIn = () => {
                 setPassword={setPassword}
                 setNeedPassword={setNeedPassword}
                 setIsUpdateReady={setIsUpdateReady}
+                loading={loading}
               />
             )}
           </Card.Content>
           <Card.Actions>
+            {email && checked && (
+              <Button mode='contained' onPress={handleClearEmail}>
+                Clear E-mail
+              </Button>
+            )}
             {!isCurrent && (
               <Button onPress={handleSendEmail}>Enter Email</Button>
             )}

@@ -1,8 +1,12 @@
 import { StyleSheet, View, Keyboard } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
-const EmailInput = ({ email, setEmail, checked }) => {
+const EmailInput = ({ email, setEmail, setChecked }) => {
+  const handleChange = value => {
+    setChecked(false);
+    setEmail(value);
+  };
   return (
     <View style={styles.container}>
       <Text variant='titleLarge'>Log in</Text>
@@ -13,7 +17,7 @@ const EmailInput = ({ email, setEmail, checked }) => {
         label='Email'
         value={email}
         autoCapitalize='none'
-        onChangeText={setEmail}
+        onChangeText={value => handleChange(value)}
       />
     </View>
   );
