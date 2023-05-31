@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+
 export function getPlayerHCByName(name, teamData) {
   let out;
   Object.keys(teamData).forEach(key => {
@@ -51,3 +53,66 @@ export const shortenName = name => {
   }
   return name;
 };
+export function setResponses(status, navigation) {
+  var good;
+  var title;
+  var text;
+  switch (status) {
+    case 'no email':
+      good = false;
+      title = 'Bad Email';
+      text = 'Your email does not match any on file';
+      break;
+    case 'nice try':
+      good = false;
+      title = 'Bad Email';
+      text = 'You need a real email not just the word';
+      break;
+    case 'no password':
+      good = false;
+      title = 'Bad Password';
+      text = 'Your password does not match';
+      break;
+    case 'match':
+      good = true;
+      title = 'Success';
+      text = 'Welcome and good luck tonight!';
+      break;
+    case 'updated':
+      good = true;
+      title = 'Success';
+      text = 'Your password has been updated.  Good luck tonight';
+      break;
+    case 'added':
+      good = true;
+      title = 'Success';
+      text = 'Your new email and password have been saved good luck tonight';
+      break;
+    case 'not valid':
+      good = false;
+      title = 'Bad Email';
+
+      text = 'You need a real email not just the word';
+      break;
+    case 'change manually':
+      good = false;
+      title = 'Special Case';
+      text = 'Please change your password manually';
+      break;
+  }
+
+  Alert.alert(
+    title,
+    text,
+    good
+      ? [
+          {
+            text: 'Proceed',
+            onPress: () => {
+              navigation.navigate('Home');
+            },
+          },
+        ]
+      : [{ text: 'Try again', onPress: () => {} }],
+  );
+}
