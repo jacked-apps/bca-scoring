@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   safeArea: {
+    flex: 1,
     marginHorizontal: 5,
   },
   headline: {
