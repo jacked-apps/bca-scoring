@@ -1,6 +1,12 @@
 import { StyleSheet, Text, View, Alert } from 'react-native';
 import { fetchGames, fetchGameStats } from '../constants/fetches';
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useLayoutEffect,
+} from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import Scoreboard from '../components/Scoreboard';
 import GamesList from '../components/GamesList';
@@ -12,6 +18,12 @@ const Scoring = ({ route, navigation }) => {
   const { table, home } = route.params;
   const isFocused = useIsFocused();
   const firstRender = useRef(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: null,
+    });
+  }, [navigation]);
 
   const refreshData = useCallback(() => {
     fetchGames(table, setGames);

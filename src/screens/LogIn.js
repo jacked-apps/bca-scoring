@@ -1,4 +1,4 @@
-import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import { Button, Text, Card, Avatar } from 'react-native-paper';
 import React, { useEffect, useState } from 'react';
 import EmailInput from '../components/EmailInput';
@@ -8,6 +8,7 @@ import PasswordReset from '../components/PasswordReset';
 import { useIsFocused } from '@react-navigation/native';
 import { setResponses, popUpAlert } from '../constants/functions';
 import { LoadingSpinner } from '../components/LoadingSpinner';
+import { styles } from '../constants/StyleMaster';
 
 const LogIn = ({ navigation }) => {
   const [email, setEmail] = useState('shodbyed@gmail.com');
@@ -60,10 +61,12 @@ const LogIn = ({ navigation }) => {
   };
 
   const leftContent = (
-    <Avatar.Icon
-      icon='billiards'
-      style={{ backgroundColor: 'black', marginRight: 20 }} // Customize the background color and margin
-    />
+    <View>
+      <Image
+        source={require('./billiard.jpeg')}
+        style={{ height: 50, width: 50, borderRadius: 50 }}
+      />
+    </View>
   );
 
   return (
@@ -77,8 +80,8 @@ const LogIn = ({ navigation }) => {
             <Card.Title
               style={styles.cardTitle}
               title='Billiards Plaza'
-              titleStyle={styles.title}
-              subtitleStyle={styles.subtitle}
+              titleStyle={styles.cardTitleText}
+              subtitleStyle={styles.cardSubtitleText}
               subtitle='BCA League'
               left={() => leftContent}
             />
@@ -157,39 +160,3 @@ const LogIn = ({ navigation }) => {
 };
 
 export default LogIn;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#00ced1',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  cardContainer: {
-    width: '90%',
-    flex: 1,
-    justifyContent: 'center',
-  },
-  loginCard: {
-    width: '90%',
-    padding: 10,
-  },
-  cardTitle: {
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 15,
-  },
-  title: {
-    marginLeft: 20,
-    fontSize: 25,
-  },
-  subtitle: {
-    marginLeft: 20,
-    fontSize: 20,
-  },
-  avatar: {
-    color: 'black',
-    backGroundColor: 'black',
-  },
-});

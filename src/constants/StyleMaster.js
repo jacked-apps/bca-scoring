@@ -5,8 +5,31 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#00ced1',
+    borderRadius: 15,
+    marginTop: 2,
+  },
+  cardContainer: {
+    width: '90%',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  loginCard: {
+    width: '90%',
+    padding: 10,
+  },
+  cardTitle: {
+    padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 15,
+  },
+  cardTitleText: {
+    marginLeft: 20,
+    fontSize: 25,
+  },
+  cardSubtitleText: {
+    marginLeft: 20,
+    fontSize: 20,
   },
   homeScroll: {
     height: height,
@@ -17,7 +40,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#00ced1',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 25,
+    marginTop: 20,
   },
   buttonView: {
     display: 'flex',
@@ -55,7 +78,15 @@ export const styles = StyleSheet.create({
   teamBlockContainer: {
     width: width * 0.95,
   },
+  teamBlockTitle: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+
   rowPlayer: {
+    width: width * 0.6,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

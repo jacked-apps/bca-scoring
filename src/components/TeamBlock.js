@@ -7,7 +7,20 @@ import React from 'react';
 const TeamBlock = ({ teamData }) => {
   return (
     <View style={styles.teamBlockContainer}>
-      <View style={styles.headline}>
+      <View
+        style={{
+          borderWidth: 2,
+          borderColor: '#00ced1',
+          borderRadius: 10,
+          padding: 10,
+          backgroundColor: '#f0f8ff',
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.2,
+          shadowRadius: 5,
+          elevation: 3,
+        }}
+      >
         <Text variant='headlineLarge'>{teamData.TeamName}</Text>
       </View>
 

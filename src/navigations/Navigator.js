@@ -15,7 +15,23 @@ const Stack = createStackNavigator();
 
 export function Navigator() {
   return (
-    <Stack.Navigator headerStyle={{}} initialRouteName='Login'>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#00ced1',
+          borderBottomWidth: 1,
+          borderBottomColor: 'black',
+          borderRadius: 15,
+        },
+        headerTitleStyle: {
+          textAlign: 'center',
+          fontSize: 25,
+          width: '100%',
+        },
+        headerTitleAlign: 'center',
+      }}
+      initialRouteName='Second Page'
+    >
       <Stack.Screen name='Login' component={LogIn} />
       <Stack.Screen name='Home' component={Home} />
       <Stack.Screen name='Loading' component={Loading} />
