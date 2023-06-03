@@ -9,6 +9,7 @@ const PlayerButton = ({
   table,
   gameKey,
   refreshData,
+  updateGameWinner,
 }) => {
   const gameNumber = gameKey.replace('game', '');
 
@@ -27,6 +28,8 @@ const PlayerButton = ({
   };
 
   const handleConfirm = async () => {
+    updateGameWinner(playerName, gameNumber);
+
     if (!tie) {
       await postSetWinner(table, gameNumber, playerName);
     }

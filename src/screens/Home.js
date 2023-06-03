@@ -64,7 +64,6 @@ const Home = ({ navigation }) => {
         ) : (
           <>
             <LoadingScreen />
-            <LoadingSpinner />
           </>
         )}
         <Button

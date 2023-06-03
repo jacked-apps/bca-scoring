@@ -3,22 +3,24 @@ export const { width, height } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
   container: {
+    borderRadius: 15,
     height: height * 0.28,
     flexDirection: 'row',
   },
   homeView: {
-    margin: 1,
+    marginVertical: 2,
+    marginRight: 4,
     backgroundColor: 'lightgray',
     borderWidth: 2,
     borderRadius: 10,
-    width: width * 0.5,
+    width: width * 0.48,
   },
   awayView: {
     margin: 1,
     backgroundColor: 'lightblue',
     borderWidth: 2,
     borderRadius: 10,
-    width: width * 0.5,
+    width: width * 0.48,
   },
 
   teamContainer: {

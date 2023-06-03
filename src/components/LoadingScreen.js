@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Image, Animated } from 'react-native';
+import { View, Image, Animated, Easing } from 'react-native';
 import { Text } from 'react-native-paper';
+
 import { styles } from '../constants/StyleMaster';
 
 const LoadingScreen = () => {
   const rotation = useRef(new Animated.Value(0)).current;
-  let size = 100; // Declare as a variable instead of a constant
+  let size = 100;
 
   useEffect(() => {
     startRotation();
@@ -17,6 +18,7 @@ const LoadingScreen = () => {
         toValue: 360,
         duration: 1000,
         useNativeDriver: false,
+        easing: Easing.linear,
       }),
     ).start();
   };
@@ -25,6 +27,8 @@ const LoadingScreen = () => {
     inputRange: [0, 360],
     outputRange: ['0deg', '360deg'],
   });
+
+  const text = 'Loading';
 
   return (
     <View style={styles.centerPage}>
@@ -39,7 +43,7 @@ const LoadingScreen = () => {
           },
         ]}
       />
-      <Text variant='displayMedium'>Loading...</Text>
+      <Text variant='displaySmall'>Loading...</Text>
     </View>
   );
 };

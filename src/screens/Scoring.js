@@ -15,6 +15,7 @@ const Scoring = ({ route, navigation }) => {
   const [games, setGames] = useState();
   const [gameStats, setGameStats] = useState();
   const [teamWinner, setTeamWinner] = useState();
+
   const { table, home } = route.params;
   const isFocused = useIsFocused();
   const firstRender = useRef(false);
@@ -126,6 +127,23 @@ const Scoring = ({ route, navigation }) => {
     }
   };
 
+  const updateGameWinner = (name, gameNumber) => {
+    const gameKey = `game${gameNumber}`;
+    console.log('before', name, gameKey, games[gameKey]);
+    if (games && games[gameKey]) {
+      const { breaker, racker } = games[gameKey];
+      if (name === breaker || name === racker || name === '') {
+        const updatedGame = { ...games[gameKey], winner: name };
+        console.log('after', updatedGame);
+        setGames(prevGames => ({
+          ...prevGames,
+          [gameKey]: updatedGame,
+        }));
+      }
+    }
+  };
+
+  //console.log('GAMES', games);
   return (
     <>
       {gameStats && games && (
@@ -142,6 +160,7 @@ const Scoring = ({ route, navigation }) => {
             gameStats={gameStats}
             navigation={navigation}
             refreshData={refreshData}
+            updateGameWinner={updateGameWinner}
           />
         </View>
       )}

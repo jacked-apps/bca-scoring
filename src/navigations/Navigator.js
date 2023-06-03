@@ -30,7 +30,7 @@ export function Navigator() {
         },
         headerTitleAlign: 'center',
       }}
-      initialRouteName='Second Page'
+      initialRouteName='Home'
     >
       <Stack.Screen name='Login' component={LogIn} />
       <Stack.Screen name='Home' component={Home} />
