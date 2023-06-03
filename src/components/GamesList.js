@@ -4,10 +4,18 @@ import PlayerButton from './PlayerButton';
 import React from 'react';
 import GameEditButton from './GameEditButton';
 
-const GamesList = ({ games, navigation, table, refreshData, tie }) => {
+const GamesList = ({
+  games,
+  navigation,
+  table,
+  refreshData,
+  tie,
+  updateGameWinner,
+}) => {
   const handleRefresh = () => {
     refreshData();
   };
+
   return (
     <View style={{ height: 500, paddingBottom: 50 }}>
       <ScrollView style={styles.scrollContainer}>
@@ -23,6 +31,7 @@ const GamesList = ({ games, navigation, table, refreshData, tie }) => {
                   gameKey={gameKey}
                   refreshData={refreshData}
                   tie={tie}
+                  updateGameWinner={updateGameWinner}
                 />
               </View>
               <View style={[styles.column, styles.centerColumn]}>
@@ -32,6 +41,7 @@ const GamesList = ({ games, navigation, table, refreshData, tie }) => {
                   winner={games[gameKey].winner}
                   refreshData={refreshData}
                   tie={tie}
+                  updateGameWinner={updateGameWinner}
                 />
               </View>
               <View style={[styles.column, styles.rightColumn]}>
@@ -43,6 +53,7 @@ const GamesList = ({ games, navigation, table, refreshData, tie }) => {
                   refreshData={refreshData}
                   gameKey={gameKey}
                   tie={tie}
+                  updateGameWinner={updateGameWinner}
                 />
               </View>
             </View>

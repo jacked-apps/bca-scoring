@@ -15,21 +15,22 @@ const Loading = ({ route, navigation }) => {
   const [status, setStatus] = useState();
   const [edit, setEdit] = useState();
   const [navigationKey, setNavigationKey] = useState(0);
-
   const { table, home } = route.params;
   const isFocused = useIsFocused();
   const firstRender = useRef(false);
 
-  const fetchData = () => {
+  const fetchData = async () => {
     const url1 = `${URL}?type=status&table=${table}&home=${home}`;
-    fetch(url1)
+    await fetch(url1)
       .then(res => res.json())
       .then(data => {
-        data.vals.teamStatus === 'locked' &&
+        if (data.vals.teamStatus === 'locked') {
           navigation.navigate('Scoring', { table: table, home: home });
-        data.vals.teamStatus === 'open' &&
+        } else if (data.vals.teamStatus === 'open') {
           navigation.navigate('Roster', { table: table, home: home });
-        setStatus(data.vals);
+        } else {
+          setStatus(data.vals);
+        }
       });
   };
 
@@ -43,6 +44,7 @@ const Loading = ({ route, navigation }) => {
   const handlePress = (page, table, home) => {
     navigation.navigate(page, { table, home });
   };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView>

@@ -16,11 +16,6 @@ const Home = ({ navigation }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'Pick your Table',
-      headerStyle: {
-        backgroundColor: '#00ced1',
-      },
-      headerTintColor: '#483d8b',
-      headerTitleStyle: { fontSize: 25 },
       headerLeft: null,
     });
   }, [navigation]);
@@ -38,8 +33,8 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <View>
-      <ScrollView style={styles.homeScroll}>
+    <View style={styles.container}>
+      <ScrollView horizontal={false}>
         {teams ? (
           teams.map((team, index) => (
             <View key={index} style={styles.homeTable}>
@@ -69,7 +64,6 @@ const Home = ({ navigation }) => {
         ) : (
           <>
             <LoadingScreen />
-            <LoadingSpinner />
           </>
         )}
         <Button

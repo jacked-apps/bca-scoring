@@ -9,6 +9,7 @@ import TeamBlock from '../components/TeamBlock';
 import { getHighestHandicap, subName } from '../constants/functions';
 import { subHCData } from '../components/SubHCSelect';
 import { postAddRoster } from '../constants/posts';
+import { TeamBlockPoolTable } from '../components/TeamBlockPoolTable';
 
 const Roster = ({ route, navigation }) => {
   const { table, home } = route.params;
@@ -126,11 +127,12 @@ const Roster = ({ route, navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <View style={styles.container}>
       <ScrollView>
         {teamData ? (
           <>
-            <TeamBlock teamData={teamData} />
+            <TeamBlockPoolTable teamData={teamData} />
+
             <View style={{ marginTop: 30 }}>
               <View style={styles.rowSelect}>
                 <Text variant='headlineSmall'>Player 1</Text>
@@ -212,7 +214,7 @@ const Roster = ({ route, navigation }) => {
           <LoadingScreen />
         )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
