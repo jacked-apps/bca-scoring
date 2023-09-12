@@ -231,6 +231,7 @@ export const postClearTieWinner = async (table, game) => {
     // handle error here
   }
 };
+
 export const postCheckEmail = async (email, setIsCurrent) => {
   const obj = {
     email: email,

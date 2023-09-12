@@ -125,3 +125,17 @@ export const popUpAlert = (response, navigation) => {
         ],
   );
 };
+
+export const checkExemptEmails = email => {
+  const exemptEmails = [
+    'shodbyed@gmail.com',
+    'apple@apple.com',
+    'google@google.com',
+    'somepoolhusler@gmail.com',
+  ];
+
+  if (exemptEmails.includes(email)) {
+    return true;
+  }
+  return false;
+};

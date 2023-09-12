@@ -56,6 +56,10 @@ export const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+    backgroundColor: 'black',
+  },
+  fullContainer: {
+    flex: 1,
     marginHorizontal: 5,
   },
   headline: {

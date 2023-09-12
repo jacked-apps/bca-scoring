@@ -6,18 +6,22 @@ import { postCheckEmail, postValidate, postUpdate } from '../constants/posts';
 import PasswordInput from '../components/PasswordInput';
 import PasswordReset from '../components/PasswordReset';
 import { useIsFocused } from '@react-navigation/native';
-import { setResponses, popUpAlert } from '../constants/functions';
+import {
+  setResponses,
+  popUpAlert,
+  checkExemptEmails,
+} from '../constants/functions';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { styles } from '../constants/StyleMaster';
 
 const LogIn = ({ navigation }) => {
-  const [email, setEmail] = useState('shodbyed@gmail.com');
+  const [email, setEmail] = useState('');
   const [prevEmail, setPrevEmail] = useState();
   const [password, setPassword] = useState();
   const [needPassword, setNeedPassword] = useState();
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState();
   const [loading, setLoading] = useState();
-  const [isCurrent, setIsCurrent] = useState(true);
+  const [isCurrent, setIsCurrent] = useState(false);
   const [isUpdateReady, setIsUpdateReady] = useState();
   const [status, setStatus] = useState();
   const [statusChanged, setStatusChanged] = useState();
@@ -41,12 +45,32 @@ const LogIn = ({ navigation }) => {
   const handleSendEmail = async () => {
     setLoading(true);
     setChecked(true);
-    await postCheckEmail(email, setIsCurrent);
-    setPrevEmail(email);
-    !isCurrent && setEmail('');
-    isCurrent && setPrevEmail('');
+    const exempt = checkExemptEmails(email);
+
+    if (exempt) {
+      console.log('exempt is true');
+      setIsCurrent(true);
+      setPrevEmail(email);
+      setLoading(false);
+      return;
+    }
+
+    try {
+      await postCheckEmail(email, setIsCurrent);
+      setPrevEmail(email);
+    } catch (error) {
+      console.error('Error when checking email:', error);
+    }
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (isCurrent) {
+      setPrevEmail(''); // Clear previous email if the current email is 'current'
+    } else {
+      setEmail(''); // Clear the email if it's not current
+    }
+  }, [isCurrent]);
 
   const handleSendPassWord = async () => {
     setLoading(true);
@@ -75,7 +99,13 @@ const LogIn = ({ navigation }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
-        <View>
+        <View
+          style={{
+            height: '80%',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <Card style={styles.loginCard}>
             <Card.Title
               style={styles.cardTitle}

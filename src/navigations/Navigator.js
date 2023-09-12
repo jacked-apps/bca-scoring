@@ -9,6 +9,7 @@ import Roster from '../screens/Roster';
 import TieRoster from '../screens/TieRoster';
 import TieScoring from '../screens/TieScoring';
 import TestScreen from '../screens/TestScreen';
+import { View } from 'react-native';
 
 const Stack = createStackNavigator();
 // returns Navigator, Screen, Group
@@ -21,16 +22,19 @@ export function Navigator() {
           backgroundColor: '#00ced1',
           borderBottomWidth: 1,
           borderBottomColor: 'black',
-          borderRadius: 15,
+          elevation: 0,
+          shadowOpacity: 0,
         },
+
         headerTitleStyle: {
           textAlign: 'center',
           fontSize: 25,
           width: '100%',
         },
         headerTitleAlign: 'center',
+        cardStyle: { backgroundColor: 'black' },
       }}
-      initialRouteName='Home'
+      initialRouteName='Login'
     >
       <Stack.Screen name='Login' component={LogIn} />
       <Stack.Screen name='Home' component={Home} />
