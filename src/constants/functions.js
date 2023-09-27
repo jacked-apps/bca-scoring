@@ -6,17 +6,18 @@ import { Alert } from 'react-native';
  * 2. Team functions
  * 3. Name functions
  * 4. Email Functions
- * 6. Response handling functions
+ * 5. Response handling functions
  */
 
 // =======================================
 // 1. PLAYER FUNCTIONS
 // =======================================
 
-/** fetch player handicap by name
+/** fetch a players handicap by name from teamData
  * @param {string} name Player name
  * @param {object} teamData team data
  */
+
 export function getPlayerHCByName(name, teamData) {
   let out;
   Object.keys(teamData).forEach(key => {
@@ -68,21 +69,26 @@ export function getHighestHandicap(player1Name, player2Name, teamData) {
 export const getChoices = (team, line, pos) => {
   const wholeTeam = Object.values(team).map(obj => obj.name);
   wholeTeam.splice(0, 2);
+
   const namesToRemove = Object.values(line).map(obj => obj.name);
   wholeTeam.push(subName(pos));
+
   const available = wholeTeam.filter(name => !namesToRemove.includes(name));
-  const data = [];
-  available.map(player => {
-    data.push({ key: player, value: player });
-  });
-  return data;
+
+  return available.map(player => ({ key: player, value: player }));
 };
-export const subName = home => {
-  return ` SUB ${home ? 'HOME' : 'AWAY'}`;
-};
+
 // =======================================
 // 3. NAME FUNCTIONS
 // =======================================
+
+/**
+ * Changes Sub title
+ * @param {boolean} home weather it is home team or away team
+ * @returns {string} 'SUB HOME' or 'SUB AWAY'
+ */
+
+export const subName = home => ` SUB ${home ? 'HOME' : 'AWAY'}`;
 
 /**
  * shortens a players name by using last name initial only
@@ -129,6 +135,7 @@ export const checkExemptEmails = email => {
  * @param {string} name Player name
  * @returns {string} player first name and initial
  */
+
 export const isValidEmail = email => {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   return emailRegex.test(email);
@@ -145,9 +152,9 @@ export const isValidEmail = email => {
  */
 
 export function setResponses(status, navigation) {
-  var good;
-  var title;
-  var text;
+  let good;
+  let title;
+  let text;
   switch (status) {
     case 'no email':
       good = false;

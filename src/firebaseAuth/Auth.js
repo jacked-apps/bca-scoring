@@ -3,27 +3,49 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from '@firebase/auth';
-import app from '..//../firebaseConfig'; // Import the firebase app instance from your firebaseConfig.js
+import app from '../../firebaseConfig';
 
-//Table of contents
-// line function
-// 26   registerUser
-// 40   sendVerificationEmail
-// 50   loginUser
-// 56   getCurrentUser
-// 61   getCurrentUser
-//
-//
-//
-//
-//
-//
-//
-//
+const auth = getAuth(app);
+
+/**
+ * INDEX TABLE OF CONTENTS
+ * 1. Enums
+ * 2. User functions
+ * 3. Password functions
+ * 4. Email Functions
+ */
+
+// =======================================
+// 1. Enums
+// =======================================
+
+/**
+ * @typedef {Object} MODES
+ * @property {'login'} LOGIN - Represents the login page
+ * @property {'register'} REGISTER - Represents the registration page
+ * @property {'resetPassword'} RESET_PASSWORD - Represents the reset password page
+ */
+
+export const LOGIN_MODES = {
+  LOGIN: 'login',
+  REGISTER: 'register',
+  RESET_PASSWORD: 'resetPassword',
+};
+
+// =======================================
+// 2. User Functions
+// =======================================
+
+/** Register a user
+ * @param {string} email users email
+ * @param {string} password users password
+ * @returns {object} User response object
+ * @throws {Error} Throws an error if registration fails
+ */
 
 export const registerUser = async (email, password) => {
-  const auth = getAuth(app); // Get the auth instance based on your initialized Firebase app
   try {
     const response = await createUserWithEmailAndPassword(
       auth,
@@ -36,19 +58,14 @@ export const registerUser = async (email, password) => {
   }
 };
 
-export const sendVerificationEmail = async user => {
-  try {
-    await sendEmailVerification(user);
-    console.log('Verification email sent.');
-  } catch (error) {
-    console.error('Error sending verification email:', error);
-    throw error;
-  }
-};
+/** Log in a user
+ * @param {string} email users email
+ * @param {string} password users password
+ * @returns {object} User response object
+ * @throws {Error} Throws an error if login fails
+ */
 
 export const loginUser = async (email, password) => {
-  const auth = getAuth(app); // Get the auth instance based on your initialized Firebase app
-
   try {
     const response = await signInWithEmailAndPassword(auth, email, password);
     return response.user;
@@ -57,7 +74,48 @@ export const loginUser = async (email, password) => {
   }
 };
 
-export const getCurrentUser = () => {
-  const auth = getAuth();
-  return auth.currentUser;
+/** Get current user
+ * @returns {object} User response object
+ */
+
+export const getCurrentUser = () => auth.currentUser;
+
+// =======================================
+// 3. Password Functions
+// =======================================
+
+/** Sends a password email to the provided email address
+ * @param {string} email users email
+ * @returns {undefined}
+ * @throws {Error} Throws an error if sending reset password email fails
+ */
+
+export const resetPassword = async email => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert('Reset Password sent to your Email');
+  } catch (error) {
+    console.error('Error sending reset password email', error);
+    throw error;
+  }
+};
+
+// =======================================
+// 4. Email Functions
+// =======================================
+
+/** Sends verification email
+ * @param {object} user Firebase user object
+ * @returns {undefined}
+ * @throws {Error} Throws an error if sending reset password email fails
+ */
+
+export const sendVerificationEmail = async user => {
+  try {
+    await sendEmailVerification(user);
+    console.log('Verification email sent.');
+  } catch (error) {
+    console.error('Error sending verification email:', error);
+    throw error;
+  }
 };

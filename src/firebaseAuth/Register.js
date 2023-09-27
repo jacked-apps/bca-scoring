@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, Text } from 'react-native-paper';
 import { registerUser, sendVerificationEmail } from './Auth';
 import { CustomTextInput } from '../components/CustomTextInput';
+import { isValidEmail } from '../constants/functions';
 
 export const Register = ({
   email,
@@ -16,9 +17,15 @@ export const Register = ({
   const isButtonDisabled = !email || password !== confirmPassword;
 
   const handleRegister = async () => {
+    // Email validity check
+    if (!isValidEmail(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
     try {
       const userResponse = await registerUser(email, password);
-      // If registration is successful, you can navigate the user to a different screen or show a success message.
+      // If registration is successful, shows success message and sends verification email
       console.log('full response', userResponse);
       await sendVerificationEmail(userResponse);
 
@@ -26,7 +33,7 @@ export const Register = ({
       setRegister(false);
     } catch (error) {
       console.error('Error during registration:', error.message);
-      // Display an error message to the user using an alert for simplicity.
+      // Displays an error message to the user
       alert(error.message);
     }
   };
@@ -56,6 +63,7 @@ export const Register = ({
         onChangeText={setConfirmPassword}
       />
       <Button
+        style={{ marginTop: 15 }}
         mode='contained'
         disabled={isButtonDisabled}
         onPress={handleRegister}
@@ -77,10 +85,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  input: {
-    marginVertical: 15,
-    width: '85%',
   },
   register: { marginTop: 20 },
   text: { fontSize: 20 },

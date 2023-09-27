@@ -3,6 +3,7 @@ import { Button, Text, TextInput } from 'react-native-paper';
 import React, { useState } from 'react';
 import { loginUser } from './Auth';
 import { CustomTextInput } from '../components/CustomTextInput';
+import { isValidEmail } from '../constants/functions';
 
 export const EmailPass = ({
   email,
@@ -16,8 +17,7 @@ export const EmailPass = ({
   const [disableLogButton, setDisableLogButton] = useState(false);
 
   const handleLogin = async () => {
-    const emailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email);
-    if (!emailValid) {
+    if (!isValidEmail(email)) {
       alert('Please enter a valid email address.');
       return;
     }
