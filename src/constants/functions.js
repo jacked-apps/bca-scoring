@@ -1,5 +1,22 @@
 import { Alert } from 'react-native';
 
+/**
+ * INDEX TABLE OF CONTENTS
+ * 1. Player functions
+ * 2. Team functions
+ * 3. Name functions
+ * 4. Email Functions
+ * 6. Response handling functions
+ */
+
+// =======================================
+// 1. PLAYER FUNCTIONS
+// =======================================
+
+/** fetch player handicap by name
+ * @param {string} name Player name
+ * @param {object} teamData team data
+ */
 export function getPlayerHCByName(name, teamData) {
   let out;
   Object.keys(teamData).forEach(key => {
@@ -9,6 +26,18 @@ export function getPlayerHCByName(name, teamData) {
   });
   return out;
 }
+// =======================================
+// 2. TEAM FUNCTIONS
+// =======================================
+
+/**
+ * Get the highest handicap between two players.
+ * @param {string} player1Name Name of the first player.
+ * @param {string} player2Name Name of the second player.
+ * @param {object} teamData Data of the team.
+ * @returns Highest handicap or a string indicating a player isn't assigned.
+ */
+
 export function getHighestHandicap(player1Name, player2Name, teamData) {
   if (!player1Name) {
     return ' player not assigned';
@@ -28,6 +57,14 @@ export function getHighestHandicap(player1Name, player2Name, teamData) {
     .sort((a, b) => b - a);
   return playerHandicaps[0];
 }
+/**
+ * Get the choices for the team
+ * @param {array} team array of players on the team
+ * @param {array} line 3 players the team chose to play
+ * @param {number} pos position of the substitute if there is one
+ * @returns an array of the team in order
+ */
+
 export const getChoices = (team, line, pos) => {
   const wholeTeam = Object.values(team).map(obj => obj.name);
   wholeTeam.splice(0, 2);
@@ -43,6 +80,15 @@ export const getChoices = (team, line, pos) => {
 export const subName = home => {
   return ` SUB ${home ? 'HOME' : 'AWAY'}`;
 };
+// =======================================
+// 3. NAME FUNCTIONS
+// =======================================
+
+/**
+ * shortens a players name by using last name initial only
+ * @param {string} name Player name
+ * @returns {string} player first name and initial
+ */
 
 export const shortenName = name => {
   if (name.length > 12) {
@@ -53,6 +99,51 @@ export const shortenName = name => {
   }
   return name;
 };
+
+// =======================================
+// 4. EMAIL FUNCTIONS
+// =======================================
+
+/**
+ * Check emails against an exempt list
+ * @param {email} name Player name
+ * @returns {string} player first name and initial
+ */
+
+export const checkExemptEmails = email => {
+  const exemptEmails = [
+    'shodbyed@gmail.com',
+    'apple@apple.com',
+    'google@google.com',
+    'somepoolhusler@gmail.com',
+  ];
+
+  if (exemptEmails.includes(email)) {
+    return true;
+  }
+  return false;
+};
+
+/**
+ * shortens a players name by using last name initial only
+ * @param {string} name Player name
+ * @returns {string} player first name and initial
+ */
+export const isValidEmail = email => {
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  return emailRegex.test(email);
+};
+
+// =======================================
+// 5. RESPONSE HANDLING FUNCTIONS
+// =======================================
+
+/**
+ * handles responses from the status
+ * @param {string} status error responses
+ * @returns {array} [good{boolean}, title{text}, text{text}]
+ */
+
 export function setResponses(status, navigation) {
   var good;
   var title;
@@ -102,6 +193,12 @@ export function setResponses(status, navigation) {
   }
   return [good, String(title), String(text)];
 }
+/**
+ * takes above response and navigates where it needs to go via alert
+ * @param {array} response [good, title, text]
+ * @param {navigation} navigation the ability to navigate
+ * @returns an alert that either navigates home or stays on that page
+ */
 
 export const popUpAlert = (response, navigation) => {
   const [good, title, text] = response;
@@ -124,18 +221,4 @@ export const popUpAlert = (response, navigation) => {
           },
         ],
   );
-};
-
-export const checkExemptEmails = email => {
-  const exemptEmails = [
-    'shodbyed@gmail.com',
-    'apple@apple.com',
-    'google@google.com',
-    'somepoolhusler@gmail.com',
-  ];
-
-  if (exemptEmails.includes(email)) {
-    return true;
-  }
-  return false;
 };

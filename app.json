@@ -4,6 +4,15 @@
       "REACT_APP_URL": "https://script.google.com/macros/s/AKfycbxmNlibauhM4sV2ak6zteFYPimfMe6aKJ8UjdMD7iy3ILdPCaM_yOXra_A-7COh-780Ow/exec",
       "eas": {
         "projectId": "79555ce5-8f6e-4847-8c7c-7f31abbc18ea"
+      },
+      "firebaseConfig": {
+        "apiKey": "AIzaSyC5MvMfEeebh3XxyzYSD3qWpFR0aAAXSHM",
+        "authDomain": "expo-bca-app.firebaseapp.com",
+        "projectId": "expo-bca-app",
+        "storageBucket": "expo-bca-app.appspot.com",
+        "messagingSenderId": "248104656807",
+        "appId": "1:248104656807:web:aef3b5d7be515da6ee2082",
+        "measurementId": "G-PWF583DDSN"
       }
     },
     "name": "expo-navigation",
@@ -29,7 +38,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "versionCode": 1
+      "versionCode": 1,
+      "package": "com.shodbyed.exponavigation"
     },
     "web": {
       "favicon": "./assets/favicon.png"

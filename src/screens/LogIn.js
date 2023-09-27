@@ -87,7 +87,7 @@ const LogIn = ({ navigation }) => {
   const leftContent = (
     <View>
       <Image
-        source={require('./billiard.jpeg')}
+        source={require('../../assets/billiard.jpeg')}
         style={{ height: 50, width: 50, borderRadius: 50 }}
       />
     </View>

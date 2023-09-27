@@ -10,6 +10,8 @@ import TieRoster from '../screens/TieRoster';
 import TieScoring from '../screens/TieScoring';
 import TestScreen from '../screens/TestScreen';
 import { View } from 'react-native';
+import LogInFire from '../screens/LoginFire';
+import { Landing } from '../screens/Landing';
 
 const Stack = createStackNavigator();
 // returns Navigator, Screen, Group
@@ -34,9 +36,11 @@ export function Navigator() {
         headerTitleAlign: 'center',
         cardStyle: { backgroundColor: 'black' },
       }}
-      initialRouteName='Login'
+      initialRouteName='LoginFire'
     >
       <Stack.Screen name='Login' component={LogIn} />
+      <Stack.Screen name='LoginFire' component={LogInFire} />
+      <Stack.Screen name='Landing' component={Landing} />
       <Stack.Screen name='Home' component={Home} />
       <Stack.Screen name='Loading' component={Loading} />
       <Stack.Screen name='Roster' component={Roster} />

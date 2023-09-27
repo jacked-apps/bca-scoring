@@ -1,0 +1,33 @@
+2. Google Play Console:
+Log in to the Google Play Console with your developer account.
+
+Click on "Create app".
+
+Fill in the basic information about your app (name, default language, etc.).
+
+In the left panel, under "Release", you'll find the different types of release tracks: Internal testing, Closed, Open, and Production. For a quick test, use the "Internal testing" track.
+
+Click on "Create new release". Here, you'll be prompted to upload your APK or App Bundle. You can also specify release notes if you want.
+
+Fill in the Store Listing information. This includes app title, description, screenshots, and more.
+
+Fill out the Content Rating questionnaire.
+
+Set up Pricing & Distribution, even if the app is free.
+
+3. Review and Rollout:
+Once all required sections are completed:
+
+Go back to "Internal testing" under "Release".
+
+If everything looks good, click on "Start Rollout to Internal testing".
+
+Usually, for internal tests, the app is available quite quickly, though the initial review might add some delay.
+
+4. Inviting Testers:
+Once your release is live for testing, you can invite testers by adding their email addresses. They'll receive an email with instructions on how to access the app.
+After you're comfortable with the process and the app on the Play Store, you can then tackle the App Store and TestFlight for iOS, which involves a more extensive review process and additional setup in Xcode.
+
+Remember, every app and update goes through a review process. Although the Play Store is typically quicker than the App Store, there might still be a wait, especially for the first submission.
+
+

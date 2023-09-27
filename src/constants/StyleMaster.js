@@ -8,6 +8,11 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     marginTop: 2,
   },
+  containerCentered: {
+    height: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   cardContainer: {
     width: '90%',
     flex: 1,
