@@ -4,13 +4,14 @@ import { Button, Text } from 'react-native-paper';
 import { registerUser, sendVerificationEmail } from './Auth';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { isValidEmail } from '../constants/functions';
+import { LOGIN_MODES } from './Auth';
 
 export const Register = ({
   email,
   setEmail,
   password,
   setPassword,
-  setRegister,
+  setMode,
 }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -30,7 +31,7 @@ export const Register = ({
       await sendVerificationEmail(userResponse);
 
       alert('Registration successful! Check your email to verify it is you');
-      setRegister(false);
+      setMode(LOGIN_MODES.LOGIN);
     } catch (error) {
       console.error('Error during registration:', error.message);
       // Displays an error message to the user
@@ -72,7 +73,10 @@ export const Register = ({
       </Button>
       <View style={styles.register}>
         <Text>Already have an account?</Text>
-        <Button labelStyle={styles.text} onPress={() => setRegister(false)}>
+        <Button
+          labelStyle={styles.text}
+          onPress={() => setMode(LOGIN_MODES.LOGIN)}
+        >
           Back to Log in
         </Button>
       </View>

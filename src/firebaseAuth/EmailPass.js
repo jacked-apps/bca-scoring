@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 import { loginUser } from './Auth';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { isValidEmail } from '../constants/functions';
-
+import { LOGIN_MODES } from './Auth';
 export const EmailPass = ({
   email,
   setEmail,
   setPassword,
   password,
-  setRegister,
+  setMode,
   navigation,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +29,7 @@ export const EmailPass = ({
       // For simplicity, I'm just going to show an alert with the user's email.
       console.log('userResponse', userResponse);
       alert(`Logged in as ${userResponse.email}`);
-      navigation.navigate('Landing');
+      navigation.navigate('Home');
     } catch (error) {
       // Handle any login errors here
       console.error('Error during login:', error.message);
@@ -60,15 +60,27 @@ export const EmailPass = ({
         autoCapitalize='none'
       />
       <Button
+        style={{ marginVertical: 10 }}
+        labelStyle={styles.text}
+        onPress={() => setMode(LOGIN_MODES.RESET_PASSWORD)}
+      >
+        Forgot Password?
+      </Button>
+      <Button
+        style={{ width: '60%' }}
         mode='contained'
         disabled={disableLogButton}
         onPress={handleLogin}
+        labelStyle={{ fontSize: 20 }}
       >
         Log in
       </Button>
       <View style={styles.register}>
         <Text>Don't have an account yet?</Text>
-        <Button labelStyle={styles.text} onPress={() => setRegister(true)}>
+        <Button
+          labelStyle={styles.text}
+          onPress={() => setMode(LOGIN_MODES.REGISTER)}
+        >
           Register
         </Button>
       </View>

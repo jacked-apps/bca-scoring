@@ -4,11 +4,13 @@ import React, { useState } from 'react';
 import { styles } from '../constants/StyleMaster';
 import { Register } from '../firebaseAuth/Register';
 import { EmailPass } from '../firebaseAuth/EmailPass';
+import { LOGIN_MODES } from '../firebaseAuth/Auth';
+import { ResetPassword } from '../firebaseAuth/ResetPassword';
 
 const LogInFire = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [register, setRegister] = useState(false);
+  const [mode, setMode] = useState(LOGIN_MODES.LOGIN);
 
   const leftContent = (
     <View>
@@ -36,26 +38,34 @@ const LogInFire = ({ navigation }) => {
               left={() => leftContent}
             />
             <Card.Content>
-              {!register && (
-                ///  EMAIL PASSWORD CHECK PAGE
+              {mode === LOGIN_MODES.LOGIN && (
+                //  EMAIL PASSWORD CHECK PAGE
                 <EmailPass
                   email={email}
                   setEmail={setEmail}
                   setPassword={setPassword}
                   password={password}
-                  setRegister={setRegister}
+                  setMode={setMode}
                   navigation={navigation}
                 />
               )}
 
-              {register && (
+              {mode === LOGIN_MODES.REGISTER && (
                 // REGISTER NEW ACCOUNT
                 <Register
                   email={email}
                   setEmail={setEmail}
                   password={password}
                   setPassword={setPassword}
-                  setRegister={setRegister}
+                  setMode={setMode}
+                />
+              )}
+              {mode === LOGIN_MODES.RESET_PASSWORD && (
+                // REGISTER NEW ACCOUNT
+                <ResetPassword
+                  email={email}
+                  setEmail={setEmail}
+                  setMode={setMode}
                 />
               )}
             </Card.Content>

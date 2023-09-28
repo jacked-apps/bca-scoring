@@ -4,6 +4,8 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
+  signOut,
+  onAuthStateChanged,
 } from '@firebase/auth';
 import app from '../../firebaseConfig';
 
@@ -15,6 +17,7 @@ const auth = getAuth(app);
  * 2. User functions
  * 3. Password functions
  * 4. Email Functions
+ * 5. Session Management Functions
  */
 
 // =======================================
@@ -118,4 +121,31 @@ export const sendVerificationEmail = async user => {
     console.error('Error sending verification email:', error);
     throw error;
   }
+};
+
+// =======================================
+// 5. Session Management Functions
+// =======================================
+
+/** Logs out the current user
+ * @returns {undefined}
+ * @throws {Error} Throws and error if logout fails
+ */
+
+export const logoutUser = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error('Error signing out:', error);
+    throw error;
+  }
+};
+
+/** Subscribe to authentication state changes
+ * @param {function} callback Callback function to handle auth state changes
+ * @returns {function} Unsubscribe function
+ */
+
+export const observeAuthState = callback => {
+  return onAuthStateChanged(auth, callback);
 };
