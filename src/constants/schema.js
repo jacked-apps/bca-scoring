@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 //phone format (###)###-####
-const phoneRegEx = /^\(\d{3}\)\d{3}-\d{4}$/;
+const phoneRegEx = /^\(\d{3}\) \d{3}-\d{4}$/;
 //zip format ##### or #####-####
 const zipRegEx = /^\d{5}(-\d{4})?$/;
 // 21 years ago
@@ -31,10 +31,6 @@ export const profileSchema = yup.object().shape({
     .string()
     .matches(zipRegEx, 'Please enter a valid ZIP code')
     .required('Zip code is required'),
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
   dob: yup
     .date()
     .required('Date of Birth is required')

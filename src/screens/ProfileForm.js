@@ -1,11 +1,19 @@
-import { View, Text, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import { Button } from 'react-native-paper';
 import { styles } from '../constants/StyleMaster';
-import { fetchPastPlayerData } from '../constants/fireFetches';
+import { Fetches, Posts } from '../constants/firebaseFunctions';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { profileSchema } from '../constants/schema';
 import { ControlledInput } from '../components/ControlledInput';
+import { InfoPopup } from '../components/InfoPopup';
+import {
+  nicknameInfo,
+  dobInfo,
+  emailChange,
+  phoneFormat,
+} from '../constants/InfoBlurbs';
 
 export const ProfileForm = ({ route }) => {
   const { userId, email } = route.params;
@@ -25,21 +33,29 @@ export const ProfileForm = ({ route }) => {
   });
   const [pastPlayerData, setPastPlayerData] = useState(null);
   const [isNewPlayer, setIsNewPlayer] = useState(false);
+  const hasPast = pastPlayerData?.firstName;
 
   useEffect(() => {
     const fetch = async () => {
       try {
-        const data = await fetchPastPlayerData(email);
+        const data = await Fetches.fetchPastPlayerData(email);
         if (data) {
           setPastPlayerData(data);
           // if we have data here populate the fields with known data
-          setValue('firstName', data.firstName);
-          setValue('lastName', data.lastName);
-          setValue('address', data.address);
-          setValue('city', data.city);
-          setValue('zip', data.zip);
-          setValue('phone', data.phone);
-          setValue('dob', data.dob);
+          const fields = [
+            'firstName',
+            'lastName',
+            'address',
+            'city',
+            'zip',
+            'phone',
+            'dob',
+          ];
+          fields.forEach(field => {
+            if (data[field]) {
+              setValue(field, data[field]);
+            }
+          });
         } else {
           setIsNewPlayer(true);
         }
@@ -51,27 +67,49 @@ export const ProfileForm = ({ route }) => {
 
     fetch();
   }, []);
-  console.log('Player form', pastPlayerData);
+
+  const onSubmit = async data => {
+    try {
+      await Posts.updateUserProfile(userId, data);
+      console.log('User data updated', data);
+    } catch (error) {
+      console.error('Error updating user', error);
+    }
+  };
+
+  const onError = errors => {
+    console.log('form errors', errors);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={[styles.centerText, styles.largeFont]}>
-        Hello{' '}
-        {pastPlayerData && pastPlayerData.firstName
-          ? pastPlayerData.firstName
-          : 'New Player'}
-        !
+        Hello {hasPast ? pastPlayerData.firstName : 'New Player'}!
       </Text>
-      {!pastPlayerData && (
+      {!hasPast && (
         <Text style={[styles.centerText, styles.mediumFont]}>
           Please Enter your information
         </Text>
       )}
-      {pastPlayerData && pastPlayerData.firstName && (
+      {hasPast && (
         <Text style={[styles.centerText, styles.mediumFont]}>
           Please Check and Update your information
         </Text>
       )}
-      <ScrollView>
+      <ScrollView style={{ marginBottom: 40 }}>
+        <View style={{ margin: 15 }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              height: 24,
+              alignItems: 'flex-end',
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>Email</Text>
+            <InfoPopup info={emailChange} />
+          </View>
+          <Text style={{ fontSize: 24 }}>{email}</Text>
+        </View>
         <ControlledInput
           label='First Name'
           control={control}
@@ -89,6 +127,7 @@ export const ProfileForm = ({ route }) => {
           control={control}
           name='phone'
           errors={errors}
+          info={phoneFormat}
         />
         <ControlledInput
           label='Address'
@@ -113,13 +152,22 @@ export const ProfileForm = ({ route }) => {
           control={control}
           name='dob'
           errors={errors}
+          info={dobInfo}
         />
         <ControlledInput
           label='Nickname (optional)'
           control={control}
           name='nickname'
           errors={errors}
+          info={nicknameInfo}
         />
+        <Button
+          style={[styles.button, { alignSelf: 'center' }]}
+          mode='contained'
+          onPress={handleSubmit(onSubmit, onError)}
+        >
+          Submit
+        </Button>
       </ScrollView>
     </View>
   );
