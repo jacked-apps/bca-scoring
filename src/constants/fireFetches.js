@@ -2,18 +2,16 @@
 // TABLE OF CONTENTS
 // ------------------------------
 // 1. User-related fetches
-//    - fetchUserProfileData
-//    - anotherUserFunction
+//    - fetchPastPlayerData
+//    - fetchCurrentUserInfo
 // 2. Next fetch type
 
 // ------------------------------
 // IMPORTS and VARIABLES
 // ------------------------------
-
-import { db } from '../../firebaseConfig';
-import 'firebase/firestore';
-
-db.collection('players').get;
+import { getFirestore, collection, doc, getDoc } from '@firebase/firestore'; // Import getFirestore from Firebase
+import { app, db } from '../../firebaseConfig';
+const firestore = getFirestore(app);
 
 // ------------------------------
 // 1. USER-RELATED FETCHES
@@ -21,22 +19,49 @@ db.collection('players').get;
 
 /**
  * Fetches the profile data of a user.
- * @param {string} userId - The ID of the user.
+ * @param {string} email - The email of the user.
  * @returns {Object} - The user's profile data.
  */
 
-export const fetchUserProfileData = async userId => {
+export const fetchPastPlayerData = async email => {
   try {
-    const userDoc = await db.collection('players').doc(userId).get();
+    const playerRef = doc(db, 'pastPlayers', email);
+    const playerDoc = await getDoc(playerRef);
 
-    if (userDoc.exists) {
-      return userDoc.data();
+    if (playerDoc.exists) {
+      const playerData = playerDoc.data();
+      //console.log('Player Profile Data:', playerData); // Log the retrieved player data
+      return playerData;
     } else {
-      console.error(`No user found for ID: ${userId}`);
+      console.log('Player not found in Firestore');
       return null;
     }
   } catch (error) {
-    console.error('Error fetching user profile data:', error);
-    return null;
+    console.error('Error fetching player profile data:', error);
+    throw error; // Handle the error appropriately in your application
+  }
+};
+
+/**
+ * Fetches the current user data using the users UID.
+ * @param {string} userId - the ID of the user
+ * @returns {object} - the users current data.
+ */
+export const fetchCurrentUserInfo = async userId => {
+  try {
+    const userRef = doc(db, 'currentUsers', userId);
+    const userDoc = await getDoc(userRef);
+
+    if (userDoc.exists) {
+      const userData = userDoc.data();
+      console.log('Current User Info Fetch', userData);
+      return userData;
+    } else {
+      console.log('User not found in Firestore');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching current user data: ', error);
+    throw error;
   }
 };

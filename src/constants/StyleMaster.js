@@ -152,6 +152,16 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     flexWrap: 'wrap',
   },
+  mediumFont: {
+    fontSize: 24,
+    lineHeight: 35,
+    marginHorizontal: 5,
+    marginBottom: 10,
+  },
+  largeFont: {
+    fontSize: 32,
+    marginBottom: 15,
+  },
   singlePickButton: {
     alignSelf: 'flex-end',
     alignItems: 'center',

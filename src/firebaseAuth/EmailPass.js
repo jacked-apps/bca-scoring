@@ -25,13 +25,16 @@ export const EmailPass = ({
 
     try {
       const userResponse = await loginUser(email, password);
-      // Once login is successful, you can use userResponse as needed.
-      // For simplicity, I'm just going to show an alert with the user's email.
-      console.log('userResponse', userResponse);
-      alert(`Logged in as ${userResponse.email}`);
-      navigation.navigate('Home');
+
+      // Check if the user's email is verified
+      if (!userResponse.emailVerified) {
+        navigation.navigate('VerifyEmail');
+        return;
+      }
+      navigation.navigate('Private', {
+        screen: 'Welcome',
+      });
     } catch (error) {
-      // Handle any login errors here
       console.error('Error during login:', error.message);
       alert(error.message);
     } finally {

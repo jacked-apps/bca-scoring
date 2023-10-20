@@ -32,13 +32,36 @@ fs.readFile(csvFilePath, 'utf8', async function (err, csvString) {
     player => !!player.firstName && !!player.lastName,
   );
 
+  // ... [rest of your code]
+
+  // ... [rest of your code]
+
   for (let player of validData) {
     try {
-      await db.collection('players').add(player);
-      console.log(`Added player: ${player.firstName} ${player.lastName}`);
+      if (player.email) {
+        const email = player.email.toLowerCase(); // Convert email to lowercase
+        const firstName =
+          player.firstName.charAt(0).toUpperCase() +
+          player.firstName.substring(1).toLowerCase(); // Capitalize first letter and make the rest lowercase
+        const lastName =
+          player.lastName.charAt(0).toUpperCase() +
+          player.lastName.substring(1).toLowerCase(); // Capitalize first letter and make the rest lowercase
+
+        player.firstName = firstName; // Update firstName with the formatted value
+        player.lastName = lastName; // Update lastName with the formatted value
+
+        await db.collection('pastPlayers').doc(email).set(player);
+        console.log(
+          `Added player: ${firstName} ${lastName} with email as ID: ${email}`,
+        );
+      } else {
+        console.error(
+          `Player: ${player.firstName} ${player.lastName} does not have an email. Skipped.`,
+        );
+      }
     } catch (error) {
       console.error(
-        `Failed to add player: ${player.firstName} ${player.lastName}`,
+        `Failed to add player: ${player.firstName} ${player.lastName} with email as ID: ${player.email}`,
         error,
       );
     }

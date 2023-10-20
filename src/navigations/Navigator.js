@@ -2,94 +2,47 @@ import React, { useEffect, useState } from 'react';
 // package imports
 import { observeAuthState } from '../firebaseAuth/Auth';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import LoadingScreen from '../components/LoadingScreen';
 //public pages
-import LogInFire from '../screens/LoginFire';
+import { PublicNavigator } from './PublicNavigator';
 //private pages
-import Home from '../screens/Home';
-import SecondPage from '../screens/SecondPage';
-import EndScreen from '../screens/EndScreen';
-import Loading from '../screens/Loading';
-import Scoring from '../screens/Scoring';
-import Roster from '../screens/Roster';
-import TieRoster from '../screens/TieRoster';
-import TieScoring from '../screens/TieScoring';
-import TestScreen from '../screens/TestScreen';
-import { Settings } from '../screens/Settings';
+import { PrivateNavigator } from './PrivateNavigator';
 
-const PrivateStack = createStackNavigator();
-const PublicStack = createStackNavigator();
+const RootStack = createStackNavigator();
 
-const screenOptions = {
-  headerStyle: {
-    backgroundColor: '#00ced1',
-    borderBottomWidth: 1,
-    borderBottomColor: 'black',
-    elevation: 0,
-    shadowOpacity: 0,
-  },
-
-  headerTitleStyle: {
-    textAlign: 'center',
-    fontSize: 25,
-    width: '100%',
-  },
-  headerTitleAlign: 'center',
-  cardStyle: { backgroundColor: 'black' },
-};
-
-// Navigation Stack for users not registered or logged in
-const PublicNavigator = () => {
+const RootNavigator = ({ isLoggedIn }) => {
   return (
-    <PublicStack.Navigator screenOptions={screenOptions}>
-      <PublicStack.Screen name='LoginFire' component={LogInFire} />
-    </PublicStack.Navigator>
-  );
-};
-
-// Navigation Stack for users that is logged in and verified
-const PrivateNavigator = () => {
-  const navigation = useNavigation();
-
-  const privateScreenOptions = {
-    ...screenOptions,
-    headerRight: () => (
-      <MaterialCommunityIcons
-        style={{ marginRight: 10 }}
-        name='cog'
-        size={32}
-        onPress={() => navigation.navigate('Settings')}
-      />
-    ),
-  };
-
-  return (
-    <PrivateStack.Navigator
-      screenOptions={privateScreenOptions}
-      initialRouteName='Home'
+    <RootStack.Navigator
+      initialRouteName={isLoggedIn ? 'Private' : 'Public'}
+      screenOptions={{
+        headerShown: false,
+        presentation: 'modal',
+      }}
     >
-      <PrivateStack.Screen name='Home' component={Home} />
-      <PrivateStack.Screen name='Loading' component={Loading} />
-      <PrivateStack.Screen name='Roster' component={Roster} />
-      <PrivateStack.Screen name='Scoring' component={Scoring} />
-      <PrivateStack.Screen name='Tie Roster' component={TieRoster} />
-      <PrivateStack.Screen name='Tie Scoring' component={TieScoring} />
-      <PrivateStack.Screen name='Second Page' component={SecondPage} />
-      <PrivateStack.Screen name='End Screen' component={EndScreen} />
-      <PrivateStack.Screen name='Settings' component={Settings} />
-      <PrivateStack.Screen name='Test' component={TestScreen} />
-    </PrivateStack.Navigator>
+      <RootStack.Screen
+        name='Private'
+        component={PrivateNavigator}
+        options={{ path: 'private' }}
+      />
+      <RootStack.Screen
+        name='Public'
+        component={PublicNavigator}
+        options={{ path: 'public' }}
+      />
+    </RootStack.Navigator>
   );
 };
 
 export const Navigator = () => {
+  const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const handleAuthChange = user => {
-      setIsLoggedIn(!!user);
-      console.log(user, isLoggedIn);
+      if (user && user.emailVerified) {
+        setIsLoggedIn(!!user);
+      }
+      setLoading(false);
     };
 
     const unsubscribe = observeAuthState(handleAuthChange);
@@ -99,5 +52,9 @@ export const Navigator = () => {
     };
   }, []);
 
-  return isLoggedIn ? <PrivateNavigator /> : <PublicNavigator />;
+  if (loading) {
+    return <LoadingScreen />; // You'll need to create or import this component
+  }
+
+  return <RootNavigator isLoggedIn={isLoggedIn} />;
 };

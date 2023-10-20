@@ -20,7 +20,9 @@ const LogInFire = ({ navigation }) => {
       />
     </View>
   );
-
+  const navigateToVerifyEmail = () => {
+    navigation.navigate('VerifyEmail');
+  };
   return (
     <>
       <KeyboardAvoidingView
@@ -58,6 +60,7 @@ const LogInFire = ({ navigation }) => {
                   password={password}
                   setPassword={setPassword}
                   setMode={setMode}
+                  navigateToVerifyEmail={navigateToVerifyEmail}
                 />
               )}
               {mode === LOGIN_MODES.RESET_PASSWORD && (

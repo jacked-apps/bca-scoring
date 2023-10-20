@@ -12,6 +12,7 @@ export const Register = ({
   password,
   setPassword,
   setMode,
+  navigateToVerifyEmail,
 }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -26,12 +27,11 @@ export const Register = ({
 
     try {
       const userResponse = await registerUser(email, password);
-      // If registration is successful, shows success message and sends verification email
+      // If registration is successful, shows success message, sends verification email, and goes to VerifyEmail page
       console.log('full response', userResponse);
       await sendVerificationEmail(userResponse);
-
-      alert('Registration successful! Check your email to verify it is you');
       setMode(LOGIN_MODES.LOGIN);
+      navigateToVerifyEmail();
     } catch (error) {
       console.error('Error during registration:', error.message);
       // Displays an error message to the user

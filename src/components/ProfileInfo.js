@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import React, { useState, useEffect } from 'react';
 import { getCurrentUser } from '../firebaseAuth/Auth';
-import { fetchUserProfileData } from '../constants/fireFetches';
+import { fetchCurrentUserInfo } from '../constants/fireFetches';
 
 export const ProfileInfo = () => {
   const [profileData, setProfileData] = useState({
@@ -21,7 +21,8 @@ export const ProfileInfo = () => {
     const fetchAndSetProfileData = async () => {
       const user = getCurrentUser(); // Assuming this function returns user object with an ID
       if (user) {
-        const userData = await fetchUserProfileData(user.uid);
+        console.log('ProfileInfo', user.email);
+        const userData = await fetchCurrentUserInfo(user);
         if (userData) {
           setProfileData(userData);
         }
