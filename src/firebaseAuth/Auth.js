@@ -53,7 +53,7 @@ export const registerUser = async (email, password) => {
     const response = await createUserWithEmailAndPassword(
       auth,
       email,
-      password,
+      password
     );
     return response.user;
   } catch (error) {
@@ -93,7 +93,7 @@ export const getCurrentUser = () => auth.currentUser;
  * @throws {Error} Throws an error if sending reset password email fails
  */
 
-export const resetPassword = async email => {
+export const resetPassword = async (email) => {
   try {
     await sendPasswordResetEmail(auth, email);
     alert('Reset Password sent to your Email');
@@ -113,7 +113,7 @@ export const resetPassword = async email => {
  * @throws {Error} Throws an error if sending reset password email fails
  */
 
-export const sendVerificationEmail = async user => {
+export const sendVerificationEmail = async (user) => {
   try {
     await sendEmailVerification(user);
     console.log('Verification email sent.');
@@ -146,6 +146,6 @@ export const logoutUser = async () => {
  * @returns {function} Unsubscribe function
  */
 
-export const observeAuthState = callback => {
+export const observeAuthState = (callback) => {
   return onAuthStateChanged(auth, callback);
 };

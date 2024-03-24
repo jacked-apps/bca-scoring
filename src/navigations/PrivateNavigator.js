@@ -24,7 +24,7 @@ const privateScreenOptions = ({ navigation }) => ({
   headerRight: () => (
     <MaterialCommunityIcons
       style={{ marginRight: 10 }}
-      name='cog'
+      name="cog"
       size={32}
       onPress={() => navigation.navigate('Settings')}
     />
@@ -35,20 +35,20 @@ export const PrivateNavigator = () => {
   return (
     <PrivateStack.Navigator
       screenOptions={privateScreenOptions}
-      initialRouteName='Welcome'
+      initialRouteName="Home"
     >
-      <PrivateStack.Screen name='Home' component={Home} />
-      <PrivateStack.Screen name='Welcome' component={Welcome} />
-      <PrivateStack.Screen name='Loading' component={Loading} />
-      <PrivateStack.Screen name='Roster' component={Roster} />
-      <PrivateStack.Screen name='Scoring' component={Scoring} />
-      <PrivateStack.Screen name='Tie Roster' component={TieRoster} />
-      <PrivateStack.Screen name='Tie Scoring' component={TieScoring} />
-      <PrivateStack.Screen name='Second Page' component={SecondPage} />
-      <PrivateStack.Screen name='End Screen' component={EndScreen} />
-      <PrivateStack.Screen name='Settings' component={Settings} />
-      <PrivateStack.Screen name='ProfileForm' component={ProfileForm} />
-      <PrivateStack.Screen name='Test' component={TestScreen} />
+      <PrivateStack.Screen name="Home" component={Home} />
+      <PrivateStack.Screen name="Welcome" component={Welcome} />
+      <PrivateStack.Screen name="Loading" component={Loading} />
+      <PrivateStack.Screen name="Roster" component={Roster} />
+      <PrivateStack.Screen name="Scoring" component={Scoring} />
+      <PrivateStack.Screen name="Tie Roster" component={TieRoster} />
+      <PrivateStack.Screen name="Tie Scoring" component={TieScoring} />
+      <PrivateStack.Screen name="Second Page" component={SecondPage} />
+      <PrivateStack.Screen name="End Screen" component={EndScreen} />
+      <PrivateStack.Screen name="Settings" component={Settings} />
+      <PrivateStack.Screen name="ProfileForm" component={ProfileForm} />
+      <PrivateStack.Screen name="Test" component={TestScreen} />
     </PrivateStack.Navigator>
   );
 };

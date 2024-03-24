@@ -11,6 +11,7 @@ import { PrivateNavigator } from './PrivateNavigator';
 const RootStack = createStackNavigator();
 
 const RootNavigator = ({ isLoggedIn }) => {
+  console.log('Navigator isLoggedIn', isLoggedIn);
   return (
     <RootStack.Navigator
       initialRouteName={isLoggedIn ? 'Private' : 'Public'}
@@ -20,12 +21,12 @@ const RootNavigator = ({ isLoggedIn }) => {
       }}
     >
       <RootStack.Screen
-        name='Private'
+        name="Private"
         component={PrivateNavigator}
         options={{ path: 'private' }}
       />
       <RootStack.Screen
-        name='Public'
+        name="Public"
         component={PublicNavigator}
         options={{ path: 'public' }}
       />
@@ -38,7 +39,7 @@ export const Navigator = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const handleAuthChange = user => {
+    const handleAuthChange = (user) => {
       if (user && user.emailVerified) {
         setIsLoggedIn(!!user);
       }
@@ -53,7 +54,7 @@ export const Navigator = () => {
   }, []);
 
   if (loading) {
-    return <LoadingScreen />; // You'll need to create or import this component
+    return <LoadingScreen />;
   }
 
   return <RootNavigator isLoggedIn={isLoggedIn} />;

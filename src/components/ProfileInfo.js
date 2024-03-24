@@ -1,48 +1,30 @@
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
-import React, { useState, useEffect } from 'react';
 import { getCurrentUser } from '../firebaseAuth/Auth';
 import { fetchCurrentUserInfo } from '../constants/fireFetches';
+import { useFetchPastPlayerById } from '../firebase/playerFetchHooks';
 
 export const ProfileInfo = () => {
-  const [profileData, setProfileData] = useState({
-    firstName: '',
-    lastName: '',
-    nickname: '',
-    email: '',
-    address: '',
-    city: '',
-    zip: '',
-    phone: '',
-    dob: '',
-  });
+  const user = getCurrentUser();
+  const {
+    data: pastPlayer,
+    isLoading,
+    error,
+  } = useFetchPastPlayerById(user.email);
 
-  useEffect(() => {
-    const fetchAndSetProfileData = async () => {
-      const user = getCurrentUser(); // Assuming this function returns user object with an ID
-      if (user) {
-        console.log('ProfileInfo', user.email);
-        const userData = await fetchCurrentUserInfo(user);
-        if (userData) {
-          setProfileData(userData);
-        }
-      }
-    };
-
-    fetchAndSetProfileData();
-  }, []); // leave dependency blank so this only runs once
+  console.log('ProfileInfo PastPlayer', pastPlayer);
 
   return (
     <View>
-      <Text variant='headlineMedium'>First Name: {profileData.firstName}</Text>
-      <Text variant='headlineMedium'>Last Name: {profileData.lastName}</Text>
-      <Text variant='headlineMedium'>Nickname: {profileData.nickname}</Text>
-      <Text variant='headlineMedium'>E-mail: {profileData.email}</Text>
-      <Text variant='headlineMedium'>Address: {profileData.address}</Text>
-      <Text variant='headlineMedium'>City: {profileData.city}</Text>
-      <Text variant='headlineMedium'>Zip: {profileData.zip}</Text>
-      <Text variant='headlineMedium'>Phone: {profileData.phone}</Text>
-      <Text variant='headlineMedium'>D.O.B.: {profileData.dob}</Text>
+      <Text variant="headlineMedium">First Name: {pastPlayer.firstName}</Text>
+      <Text variant="headlineMedium">Last Name: {pastPlayer.lastName}</Text>
+      <Text variant="headlineMedium">Nickname: {pastPlayer.nickname}</Text>
+      <Text variant="headlineMedium">E-mail: {pastPlayer.email}</Text>
+      <Text variant="headlineMedium">Address: {pastPlayer.address}</Text>
+      <Text variant="headlineMedium">City: {pastPlayer.city}</Text>
+      <Text variant="headlineMedium">Zip: {pastPlayer.zip}</Text>
+      <Text variant="headlineMedium">Phone: {pastPlayer.phone}</Text>
+      <Text variant="headlineMedium">D.O.B.: {pastPlayer.dob}</Text>
     </View>
   );
 };
