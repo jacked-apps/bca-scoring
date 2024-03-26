@@ -7,7 +7,7 @@ import { EmailPass } from '../firebaseAuth/EmailPass';
 import { LOGIN_MODES } from '../firebaseAuth/Auth';
 import { ResetPassword } from '../firebaseAuth/ResetPassword';
 
-const LogInFire = ({ navigation }) => {
+export const LogInFire = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mode, setMode] = useState(LOGIN_MODES.LOGIN);
@@ -33,10 +33,10 @@ const LogInFire = ({ navigation }) => {
           <Card style={styles.loginCard}>
             <Card.Title
               style={styles.cardTitle}
-              title='Billiards Plaza (fire)'
+              title="Billiards Plaza (fire)"
               titleStyle={styles.cardTitleText}
               subtitleStyle={styles.cardSubtitleText}
-              subtitle='BCA League'
+              subtitle="BCA League"
               left={() => leftContent}
             />
             <Card.Content>
@@ -78,5 +78,3 @@ const LogInFire = ({ navigation }) => {
     </>
   );
 };
-
-export default LogInFire;

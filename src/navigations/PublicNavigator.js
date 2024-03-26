@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import LogInFire from '../login/LoginFire';
-import { VerifyEmail } from '../firebaseAuth/VerifyEmail';
+import { publicRoutes } from './routes';
 
 const PublicStack = createStackNavigator();
 export const screenOptions = {
@@ -25,8 +24,14 @@ export const screenOptions = {
 export const PublicNavigator = () => {
   return (
     <PublicStack.Navigator screenOptions={screenOptions}>
-      <PublicStack.Screen name="LoginFire" component={LogInFire} />
-      <PublicStack.Screen name="VerifyEmail" component={VerifyEmail} />
+      {publicRoutes.map((route) => (
+        <PublicStack.Screen
+          key={route.name}
+          name={route.name}
+          component={route.component}
+          options={route.options}
+        />
+      ))}
     </PublicStack.Navigator>
   );
 };

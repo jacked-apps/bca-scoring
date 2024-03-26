@@ -3,6 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { screenOptions } from './PublicNavigator';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { privateRoutes } from './routes';
+
 import SecondPage from '../screens/SecondPage';
 import EndScreen from '../screens/EndScreen';
 import Loading from '../screens/Loading';
@@ -36,18 +38,14 @@ export const PrivateNavigator = () => {
       screenOptions={privateScreenOptions}
       initialRouteName="Welcome"
     >
-      <PrivateStack.Screen name="Home" component={Home} />
-      <PrivateStack.Screen name="Welcome" component={Welcome} />
-      <PrivateStack.Screen name="Loading" component={Loading} />
-      <PrivateStack.Screen name="Roster" component={Roster} />
-      <PrivateStack.Screen name="Scoring" component={Scoring} />
-      <PrivateStack.Screen name="Tie Roster" component={TieRoster} />
-      <PrivateStack.Screen name="Tie Scoring" component={TieScoring} />
-      <PrivateStack.Screen name="Second Page" component={SecondPage} />
-      <PrivateStack.Screen name="End Screen" component={EndScreen} />
-      <PrivateStack.Screen name="Settings" component={Settings} />
-      <PrivateStack.Screen name="ProfileForm" component={ProfileForm} />
-      <PrivateStack.Screen name="Test" component={TestScreen} />
+      {privateRoutes.map((route) => (
+        <PrivateStack.Screen
+          key={route.name}
+          name={route.name}
+          component={route.component}
+          options={route.options}
+        />
+      ))}
     </PrivateStack.Navigator>
   );
 };
