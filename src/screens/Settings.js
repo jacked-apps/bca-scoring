@@ -3,7 +3,7 @@ import { Text } from 'react-native-paper';
 import React, { useState } from 'react';
 //import { styles } from '../constants/StyleMaster';
 import Accordion from 'react-native-collapsible/Accordion';
-import { LogOutButton } from '../components/LogOutButton';
+import { LogOutButton } from '../login/LogOutButton';
 import { ProfileInfo } from '../components/ProfileInfo';
 
 const dataArray = [
@@ -18,7 +18,7 @@ export const Settings = () => {
   const renderHeader = (section, _, isActive) => {
     return (
       <View style={isActive ? styles.activeHeader : styles.inactiveHeader}>
-        <Text variant='headlineLarge'>{section.title}</Text>
+        <Text variant="headlineLarge">{section.title}</Text>
       </View>
     );
   };

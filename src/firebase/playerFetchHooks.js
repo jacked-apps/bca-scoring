@@ -18,8 +18,6 @@
 import { useQuery } from 'react-query';
 import { db } from '../../firebaseConfig';
 import { collection, doc, getDoc, getDocs } from '@firebase/firestore';
-//import { Email } from '../assets/typesFolder/sharedTypes';
-//import { CurrentUser, PastPlayer } from '../assets/typesFolder/userTypes';
 
 // ------------------------------
 // 1. HOOKS
@@ -34,7 +32,6 @@ export const useFetchPastPlayerById = (playerId) => {
     }
   );
 };
-
 export const useFetchCurrentUserById = (id) => {
   return useQuery(['currentUser', id], () => fetchCurrentUserById(id), {
     enabled: !!id,

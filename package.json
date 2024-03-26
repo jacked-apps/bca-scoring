@@ -17,6 +17,7 @@
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
+    "bca-firebase-queries": "github:jacked-apps/bca-firebase-queries#v1.3.0",
     "dotenv": "^16.0.3",
     "expo": "^49.0.0",
     "expo-constants": "~14.4.2",

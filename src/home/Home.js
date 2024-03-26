@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Button, Text } from 'react-native-paper';
 import { URL, URL2 } from '../constants/url';
@@ -6,8 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from '../constants/StyleMaster';
 import LoadingScreen from '../components/LoadingScreen';
 import { fetchTeamList } from '../constants/fetches';
-import { LoadingSpinner } from '../components/LoadingSpinner';
-import { Ionicons } from '@expo/vector-icons';
+//import { LoadingSpinner } from '../components/LoadingSpinner';
+//import { Ionicons } from '@expo/vector-icons';
 
 const Home = ({ navigation }) => {
   const [matches, setMatches] = useState({});
@@ -38,11 +38,11 @@ const Home = ({ navigation }) => {
         {teams ? (
           teams.map((team, index) => (
             <View key={index} style={styles.homeTable}>
-              <Text variant='headlineMedium'>Table {index + 1}</Text>
+              <Text variant="headlineMedium">Table {index + 1}</Text>
               <View style={styles.buttonView}>
                 <Button
                   style={styles.button}
-                  mode='contained'
+                  mode="contained"
                   onPress={() =>
                     handlePress('Loading', index + 1, team[1][1], team[1][0])
                   }
@@ -51,7 +51,7 @@ const Home = ({ navigation }) => {
                 </Button>
                 <Button
                   style={styles.button}
-                  mode='contained'
+                  mode="contained"
                   onPress={() =>
                     handlePress('Loading', index + 1, team[2][1], team[2][0])
                   }
@@ -68,7 +68,7 @@ const Home = ({ navigation }) => {
         )}
         <Button
           style={{ marginVertical: 40 }}
-          mode='contained'
+          mode="contained"
           onPress={() => handlePress('Test', 1, true, 'Test button')}
         >
           Test

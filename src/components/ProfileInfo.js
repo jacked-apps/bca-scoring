@@ -1,9 +1,8 @@
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { getCurrentUser } from '../firebaseAuth/Auth';
-import { fetchCurrentUserInfo } from '../constants/fireFetches';
 import { useFetchPastPlayerById } from '../firebase/playerFetchHooks';
-
+useFetchPastPlayerById;
 export const ProfileInfo = () => {
   const user = getCurrentUser();
   const {
@@ -12,7 +11,12 @@ export const ProfileInfo = () => {
     error,
   } = useFetchPastPlayerById(user.email);
 
-  console.log('ProfileInfo PastPlayer', pastPlayer);
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+  if (error) {
+    return <Text>Error: {error.message}</Text>;
+  }
 
   return (
     <View>

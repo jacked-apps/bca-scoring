@@ -35,7 +35,7 @@ export const PrivateNavigator = () => {
   return (
     <PrivateStack.Navigator
       screenOptions={privateScreenOptions}
-      initialRouteName="Home"
+      initialRouteName="Welcome"
     >
       <PrivateStack.Screen name="Home" component={Home} />
       <PrivateStack.Screen name="Welcome" component={Welcome} />
