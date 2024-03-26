@@ -2,6 +2,7 @@ import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { getCurrentUser } from '../firebaseAuth/Auth';
 import { useFetchPastPlayerById } from '../firebase/playerFetchHooks';
+//import { useFetchPastPlayerById } from 'bca-firebase-queries';
 useFetchPastPlayerById;
 export const ProfileInfo = () => {
   const user = getCurrentUser();
