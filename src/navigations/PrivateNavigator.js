@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { screenOptions } from './PublicNavigator';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import Home from '../screens/Home';
 import SecondPage from '../screens/SecondPage';
 import EndScreen from '../screens/EndScreen';
 import Loading from '../screens/Loading';
@@ -14,8 +13,8 @@ import TieScoring from '../screens/TieScoring';
 import TestScreen from '../screens/TestScreen';
 import { Settings } from '../screens/Settings';
 import { ProfileForm } from '../screens/ProfileForm';
-import { Welcome } from '../screens/Welcome';
-import { Welcome2 } from '../screens/Welcome2';
+import { Welcome } from '../welcome/Welcome';
+import Home from '../home/Home';
 
 const PrivateStack = createStackNavigator();
 
