@@ -11,7 +11,6 @@ import { PrivateNavigator } from './PrivateNavigator';
 const RootStack = createStackNavigator();
 
 const RootNavigator = ({ isLoggedIn }) => {
-  console.log('Navigator isLoggedIn', isLoggedIn);
   return (
     <RootStack.Navigator
       initialRouteName={isLoggedIn ? 'Private' : 'Public'}
