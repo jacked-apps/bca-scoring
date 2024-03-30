@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+
 // native imports
 import { View, Text, TouchableOpacity } from 'react-native';
 
@@ -27,19 +29,37 @@ export const Welcome = ({ navigation }) => {
     useFetchPastPlayerById(authUser.email);
   const {
     data: currentUser,
-    isLoading: loadingCurrentPlayer,
+    isLoading: loadingCurrentUser,
     isError: currentUserError,
-    refetch: refetchCurrentPlayer,
+    refetch: refetchCurrentUser,
   } = useFetchCurrentUserById(authUser.uid);
 
+  useEffect(() => {
+    if (
+      !loadingCurrentUser &&
+      !loadingPastPlayer &&
+      !currentUserError &&
+      pastPlayer &&
+      currentUser
+    ) {
+      routeUsers(currentUser, pastPlayer);
+    }
+  }, [
+    currentUser,
+    pastPlayer,
+    loadingCurrentUser,
+    loadingPastPlayer,
+    currentUserError,
+  ]);
+
   // handle errors
-  if (loadingPastPlayer || loadingCurrentPlayer) {
+  if (loadingPastPlayer || loadingCurrentUser) {
     return <LoadingScreen />;
   }
   if (currentUserError) {
     return (
       <View style={styles.container}>
-        <TouchableOpacity onPress={refetchCurrentPlayer}>
+        <TouchableOpacity onPress={refetchCurrentUser}>
           <Text>Error Fetching current player info: try again</Text>
         </TouchableOpacity>
       </View>
@@ -51,14 +71,13 @@ export const Welcome = ({ navigation }) => {
     // No past player means we have no data about them.
     // Send them to the application form
     if (!current.firstName && !past) {
-      navigation.navigate('ProfileForm');
+      navigation.navigate('Profile Form');
       return;
     }
     // First time logging in BUT played before. We have info.
     // Send them to a page to confirm this is their Information
     if (!current.firstName && past) {
-      //TODO create a confirm identity page
-      //navigation.navigate('ConfirmPast');
+      navigation.navigate('Confirm', { pastPlayer, currentUser });
       return;
     }
     // established user without pastPlayer information should not happen
@@ -86,10 +105,6 @@ export const Welcome = ({ navigation }) => {
       }
     }
   };
-
-  if (pastPlayer && currentUser) {
-    routeUsers(currentUser, pastPlayer);
-  }
 
   return (
     <View style={styles.container}>

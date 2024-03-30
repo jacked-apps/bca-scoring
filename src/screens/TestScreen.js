@@ -39,13 +39,13 @@ const TestScreen = ({ route, navigation }) => {
           style={{ marginLeft: 10 }}
           onPress={() => navigation.navigate('Second Page', { table, home })}
         >
-          <Ionicons name='arrow-back' size={24} color='white' />
+          <Ionicons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
       ),
     });
   }, [navigation]);
 
-  const handleSelect = name => {
+  const handleSelect = (name) => {
     console.log('whatever');
     setSelected(name);
     setHandicap(key);
@@ -59,9 +59,9 @@ const TestScreen = ({ route, navigation }) => {
     <View>
       {teamData ? (
         <>
-          <Text variant='headlineMedium'>Table {table}</Text>
-          <Text variant='headlineMedium'>{home ? 'home' : 'away'}</Text>
-          <Button mode='contained' onPress={handleEmailCheck}>
+          <Text variant="headlineMedium">Table {table}</Text>
+          <Text variant="headlineMedium">{home ? 'home' : 'away'}</Text>
+          <Button mode="contained" onPress={handleEmailCheck}>
             try email
           </Button>
         </>
