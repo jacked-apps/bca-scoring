@@ -2,5 +2,5 @@
   "files.exclude": {
     "node_modules": false
   },
-  "cSpell.words": ["BCA's", "navigations"]
+  "cSpell.words": ["BCA's", "datetimepicker", "navigations"]
 }

@@ -1,12 +1,17 @@
 import { StyleSheet, View, Text } from 'react-native';
-import React from 'react';
-import { DatePickerComponent } from '../components/DatePickerComponent';
+import React, { useState } from 'react';
+import { DatePickerComponent } from '../platformSpecificComponents/DatePickerComponent';
+import { readableDate } from '../constants/dateFunctions';
 
 export const VerifyDOB = () => {
+  const [date, setDate] = useState(new Date());
+  const [error, setError] = useState('');
   return (
     <View>
       <Text>Please enter your date of birth to verify this is you.</Text>
-      <DatePickerComponent />
+      <DatePickerComponent date={date} setDate={setDate} setError={setError} />
+      <Text>You entered: {readableDate(date)}</Text>
+      {error && <Text>{error}</Text>}
     </View>
   );
 };
