@@ -52,9 +52,9 @@ export const Navigator = () => {
     };
   }, []);
 
-  if (loading) {
-    return <LoadingScreen />;
-  }
+  // if (loading) {
+  //   return <LoadingScreen />;
+  // }
 
   return <RootNavigator isLoggedIn={isLoggedIn} />;
 };

@@ -24,6 +24,7 @@ export const handleTextInputChange = (text, setters) => {
   } else {
     // convert to storable date
     const storableDate = readableToStorableDateString(text);
+    console.log('storableDate:', storableDate, text);
     setters.setError('');
     setters.setDate(new Date(storableDate)); // must be a date object
   }

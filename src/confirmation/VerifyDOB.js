@@ -34,9 +34,9 @@ export const VerifyDOB = ({ pastPlayer, navigation }) => {
 
     // check if the date entered matches the date on file
     if (
-      enteredYear === Number(year) &&
-      enteredMonth === Number(month) &&
-      enteredDay === Number(day)
+      Number(enteredYear) === Number(year) &&
+      Number(enteredMonth) === Number(month) &&
+      Number(enteredDay) === Number(day)
     ) {
       navigation.navigate('Update Profile');
     } else {

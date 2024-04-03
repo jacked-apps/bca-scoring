@@ -53,9 +53,9 @@ export const Welcome = ({ navigation }) => {
   ]);
 
   // handle errors
-  if (loadingPastPlayer || loadingCurrentUser) {
-    return <LoadingScreen />;
-  }
+  // if (loadingPastPlayer || loadingCurrentUser) {
+  //   return <LoadingScreen />;
+  // }
   if (currentUserError) {
     return (
       <View style={styles.container}>

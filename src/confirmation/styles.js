@@ -3,7 +3,9 @@ import { StyleSheet } from 'react-native';
 export const confirmStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#00ced1',
+    borderRadius: 15,
+    marginTop: 2,
     alignItems: 'center',
   },
   header: {

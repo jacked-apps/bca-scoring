@@ -17,6 +17,7 @@ import { Settings } from '../screens/Settings';
 import { ProfileForm } from '../screens/ProfileForm';
 import { Welcome } from '../welcome/Welcome';
 import Home from '../home/Home';
+import { Update } from '../UpdateProfile/Update';
 
 const PrivateStack = createStackNavigator();
 

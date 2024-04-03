@@ -5,6 +5,7 @@ import { VerifyEmail } from '../firebaseAuth/VerifyEmail';
 // Private routes
 import Home from '../home/Home';
 import { Welcome } from '../welcome/Welcome';
+import { Welcome2 } from '../welcome/Welcome2';
 import { ProfileForm } from '../screens/ProfileForm';
 import SecondPage from '../screens/SecondPage';
 import Loading from '../screens/Loading';
@@ -16,7 +17,8 @@ import { Settings } from '../screens/Settings';
 import TestScreen from '../screens/TestScreen';
 import EndScreen from '../screens/EndScreen';
 import { ConfirmPast } from '../confirmation/ConfirmPast';
-import { UpdateProfile } from '../UpdateProfile/UpdateProfile';
+import { Update } from '../UpdateProfile/Update';
+import { League } from '../League/League';
 
 export const publicRoutes = [
   { name: 'LoginFire', component: LogInFire, options: {} },
@@ -25,9 +27,11 @@ export const publicRoutes = [
 
 export const privateRoutes = [
   { name: 'Confirm', component: ConfirmPast, options: {} },
+  { name: 'League', component: League, options: {} },
   { name: 'Home', component: Home, options: {} },
   { name: 'Welcome', component: Welcome, options: {} },
-  { name: 'Update Profile', component: UpdateProfile, options: {} },
+  { name: 'Update Profile', component: Update, options: {} },
+  { name: 'Welcome2', component: Welcome2, options: {} },
   { name: 'Profile Form', component: ProfileForm, options: {} },
   { name: 'Loading', component: Loading, options: {} },
   { name: 'Roster', component: Roster, options: {} },
