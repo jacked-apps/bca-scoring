@@ -16,6 +16,7 @@ import { Settings } from '../screens/Settings';
 import TestScreen from '../screens/TestScreen';
 import EndScreen from '../screens/EndScreen';
 import { ConfirmPast } from '../confirmation/ConfirmPast';
+import { UpdateProfile } from '../UpdateProfile/UpdateProfile';
 
 export const publicRoutes = [
   { name: 'LoginFire', component: LogInFire, options: {} },
@@ -26,6 +27,7 @@ export const privateRoutes = [
   { name: 'Confirm', component: ConfirmPast, options: {} },
   { name: 'Home', component: Home, options: {} },
   { name: 'Welcome', component: Welcome, options: {} },
+  { name: 'Update Profile', component: UpdateProfile, options: {} },
   { name: 'Profile Form', component: ProfileForm, options: {} },
   { name: 'Loading', component: Loading, options: {} },
   { name: 'Roster', component: Roster, options: {} },

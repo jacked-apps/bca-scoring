@@ -2,9 +2,9 @@ export const readableDate = (date) => {
   if (typeof date === 'string') {
     return date;
   }
-  const dateString = `${date.getMonth() + 1}-${
-    date.getDate() + 1
-  }-${date.getFullYear()}`;
+  const dateString = `${
+    date.getMonth() + 1
+  }-${date.getDate()}-${date.getFullYear()}`;
   //console.log('dateString;', dateString);
   return dateString;
 };
