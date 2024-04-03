@@ -2,7 +2,7 @@ import { View, Text } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { styles } from '../constants/StyleMaster';
 import { Button } from 'react-native-paper';
-import { getCurrentUser, sendVerificationEmail } from './Auth';
+import { getCurrentUser, sendVerificationEmail } from 'bca-firebase-queries';
 
 export const VerifyEmail = ({ navigation }) => {
   const [newSent, setNewSent] = useState(false);

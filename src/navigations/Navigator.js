@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // package imports
-import { observeAuthState } from '../firebaseAuth/Auth';
+import { observeAuthState } from 'bca-firebase-queries';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoadingScreen from '../components/LoadingScreen';
 //public pages

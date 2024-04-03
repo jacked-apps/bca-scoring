@@ -1,10 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { Button, Text } from 'react-native-paper';
-import { registerUser, sendVerificationEmail } from './Auth';
+import { registerUser, sendVerificationEmail, LOGIN_MODES } from 'bca-firebase-queries';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { isValidEmail } from '../constants/functions';
-import { LOGIN_MODES } from './Auth';
 
 export const Register = ({
   email,

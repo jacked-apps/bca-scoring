@@ -7,11 +7,11 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import LoadingScreen from '../components/LoadingScreen';
 
 // firebase
-import { getCurrentUser } from '../firebaseAuth/Auth';
-import {
+import { 
+  getCurrentUser,
   useFetchCurrentUserById,
   useFetchPastPlayerById,
-} from '../firebase/playerFetchHooks';
+} from 'bca-firebase-queries';
 
 // functions
 import {

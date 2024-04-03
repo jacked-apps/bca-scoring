@@ -1,7 +1,7 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { Button } from 'react-native-paper';
 import React from 'react';
-import { logoutUser } from '../firebaseAuth/Auth';
+import { logoutUser } from 'bca-firebase-queries';
 import { useNavigation } from '@react-navigation/native';
 
 export const LogOutButton = () => {

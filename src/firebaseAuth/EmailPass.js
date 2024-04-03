@@ -1,10 +1,9 @@
 import { StyleSheet, View } from 'react-native';
-import { Button, Text, TextInput } from 'react-native-paper';
+import { Button, Text } from 'react-native-paper';
 import React, { useState } from 'react';
-import { loginUser } from './Auth';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { isValidEmail } from '../constants/functions';
-import { LOGIN_MODES } from './Auth';
+import { LOGIN_MODES, loginUser } from 'bca-firebase-queries';
 export const EmailPass = ({
   email,
   setEmail,

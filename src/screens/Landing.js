@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { Button, Text } from 'react-native-paper';
-import { sendVerificationEmail } from '../firebaseAuth/Auth';
+import { sendVerificationEmail } from 'bca-firebase-queries';
 import { styles } from '../constants/StyleMaster';
 import { getAuth } from '@firebase/auth';
 import { LoadingSpinner } from '../components/LoadingSpinner';

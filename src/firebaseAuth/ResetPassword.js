@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Button, Text } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import { CustomTextInput } from '../components/CustomTextInput';
-import { LOGIN_MODES } from './Auth';
+import { LOGIN_MODES, resetPassword } from 'bca-firebase-queries';
 import { isValidEmail } from '../constants/functions';
-import { resetPassword } from './Auth';
 
 export const ResetPassword = ({ email, setEmail, setMode }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);

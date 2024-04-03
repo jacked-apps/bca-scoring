@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
 import { styles } from '../constants/StyleMaster';
-import { Fetches, Posts } from '../constants/firebaseFunctions';
 import { useForm } from 'react-hook-form';
+import { fetchPastPlayerData, updateUserProfile } from 'bca-firebase-queries';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { profileSchema } from '../constants/schema';
 import { ControlledInput } from '../components/ControlledInput';
@@ -38,7 +38,7 @@ export const ProfileForm = ({ route }) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const data = await Fetches.fetchPastPlayerData(email);
+        const data = await fetchPastPlayerData(email);
         if (data) {
           setPastPlayerData(data);
           // if we have data here populate the fields with known data
@@ -70,7 +70,7 @@ export const ProfileForm = ({ route }) => {
 
   const onSubmit = async data => {
     try {
-      await Posts.updateUserProfile(userId, data);
+      await updateUserProfile(userId, data);
       console.log('User data updated', data);
     } catch (error) {
       console.error('Error updating user', error);

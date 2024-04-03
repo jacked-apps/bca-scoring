@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { styles } from '../constants/StyleMaster';
 import { Register } from '../firebaseAuth/Register';
 import { EmailPass } from '../firebaseAuth/EmailPass';
-import { LOGIN_MODES } from '../firebaseAuth/Auth';
+import { LOGIN_MODES } from 'bca-firebase-queries';
 import { ResetPassword } from '../firebaseAuth/ResetPassword';
 
 export const LogInFire = ({ navigation }) => {
