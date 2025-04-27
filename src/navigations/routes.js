@@ -1,10 +1,13 @@
+import { Text, View } from 'react-native';
+
 // Public routes
 import { LogInFire } from '../login/LoginFire';
 import { VerifyEmail } from '../firebaseAuth/VerifyEmail';
 
 // Private routes
-import Home from '../home/Home';
 import { Welcome } from '../welcome/Welcome';
+/*
+import Home from '../home/Home';
 import { Welcome2 } from '../welcome/Welcome2';
 import { ProfileForm } from '../screens/ProfileForm';
 import SecondPage from '../screens/SecondPage';
@@ -19,6 +22,7 @@ import EndScreen from '../screens/EndScreen';
 import { ConfirmPast } from '../confirmation/ConfirmPast';
 import { Update } from '../UpdateProfile/Update';
 import { League } from '../League/League';
+*/
 
 export const publicRoutes = [
   { name: 'LoginFire', component: LogInFire, options: {} },
@@ -26,10 +30,12 @@ export const publicRoutes = [
 ];
 
 export const privateRoutes = [
+  { name: 'Welcome', component: Welcome, options: {} },
+
+  /*
   { name: 'Confirm', component: ConfirmPast, options: {} },
   { name: 'League', component: League, options: {} },
   { name: 'Home', component: Home, options: {} },
-  { name: 'Welcome', component: Welcome, options: {} },
   { name: 'Update Profile', component: Update, options: {} },
   { name: 'Welcome2', component: Welcome2, options: {} },
   { name: 'Profile Form', component: ProfileForm, options: {} },
@@ -42,4 +48,5 @@ export const privateRoutes = [
   { name: 'End Screen', component: EndScreen, options: {} },
   { name: 'Settings', component: Settings, options: {} },
   { name: 'Test', component: TestScreen, options: {} },
+  */
 ];

@@ -23,14 +23,15 @@ import { styles } from '../constants/StyleMaster';
 export const Welcome = ({ navigation }) => {
   // get user/player information
   const authUser = getCurrentUser();
-  const { data: pastPlayer, isLoading: loadingPastPlayer } =
-    useFetchPastPlayerById(authUser.email);
+
   const {
     data: currentUser,
     isLoading: loadingCurrentUser,
     isError: currentUserError,
     refetch: refetchCurrentUser,
   } = useFetchCurrentUserById(authUser.uid);
+
+  const { data: pastPlayer, isLoading: loadingPastPlayer } = useFetchPastPlayerById(authUser.email);
 
   useEffect(() => {
     if (
@@ -106,9 +107,11 @@ export const Welcome = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.centerText, styles.mediumFont]}>
-        Welcome, {currentUser.firstName || currentUser.email}
-      </Text>
+      {currentUser && (
+        <Text style={[styles.centerText, styles.mediumFont]}>
+          Welcome, {currentUser.firstName || currentUser.email}
+        </Text>
+      )}
     </View>
   );
 };

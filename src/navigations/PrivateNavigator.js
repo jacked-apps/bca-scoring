@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { privateRoutes } from './routes';
 
+/*
 import SecondPage from '../screens/SecondPage';
 import EndScreen from '../screens/EndScreen';
 import Loading from '../screens/Loading';
@@ -18,6 +19,7 @@ import { ProfileForm } from '../screens/ProfileForm';
 import { Welcome } from '../welcome/Welcome';
 import Home from '../home/Home';
 import { Update } from '../UpdateProfile/Update';
+*/
 
 const PrivateStack = createStackNavigator();
 
